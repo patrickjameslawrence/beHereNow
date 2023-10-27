@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* allows pages to be full screen by default */
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: black;
+}
+
+#___gatsby {
+  height: 100%
+}
+
+#gatsby-focus-wrapper {
+  height: 100%;
+}

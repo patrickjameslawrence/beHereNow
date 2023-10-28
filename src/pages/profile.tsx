@@ -11,4 +11,4 @@ const ProfilePage: React.FC<PageProps> = () => {
 
 export default ProfilePage
 
-export const Head: HeadFC = () => <title>BeHereNow | Profile</title>
+export const Head: HeadFC = () => <title>Profile</title>

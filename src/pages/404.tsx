@@ -1,21 +1,13 @@
 import * as React from "react"
 import type { HeadFC, PageProps } from "gatsby"
 import { Link } from 'gatsby'
-import concatentateClassNames from "../lib/joinClassNames"
-import getBeHereNowGradientString from "../lib/getBeHereNowGradientString"
+import joinClassNames from "../lib/joinClassNames"
+import getBeHereNowGradient from "../lib/getBeHereNowGradient"
 
 const NotFoundPage: React.FC<PageProps> = () => {
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full">
-        <body class="h-full">
-        ```
-      */}
-      <main className={concatentateClassNames(getBeHereNowGradientString(), "relative isolate h-full")}>
+      <main className={"relative isolate h-full"}>
         <div className="mx-auto max-w-7xl px-6 py-32 text-center sm:py-40 lg:px-8">
           <p className="text-base font-semibold leading-8 text-white">404</p>
           <h1 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">Page not found</h1>

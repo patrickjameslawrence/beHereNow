@@ -11,4 +11,4 @@ const SettingsPage: React.FC<PageProps> = () => {
 
 export default SettingsPage
 
-export const Head: HeadFC = () => <title>BeHereNow | Settings</title>
+export const Head: HeadFC = () => <title>Settings</title>

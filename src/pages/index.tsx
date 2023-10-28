@@ -7,10 +7,7 @@ const IndexPage: React.FC<PageProps> = () => {
 
   return (
     <>
-      <Layout
-        title="Here's what's going on"
-        description="You're seeing everything that's been posted recently"
-      >
+      <Layout>
           
       </Layout>
     </>
@@ -19,4 +16,4 @@ const IndexPage: React.FC<PageProps> = () => {
 
 export default IndexPage
 
-export const Head: HeadFC = () => <title>BeHereNow | Explore</title>
+export const Head: HeadFC = () => <title>BeHereNow</title>

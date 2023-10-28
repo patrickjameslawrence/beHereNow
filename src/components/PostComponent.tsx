@@ -129,7 +129,7 @@ Post.Content = Content
 export default function Post({ children }) {
   return (
     <>
-      <div className="bg-neutral-950 outline outline-1 outline-neutral-900 px-4 py-5 sm:px-6 shadow rounded-md">
+      <div className="bg-neutral-950 outline outline-1 outline-neutral-900 px-4 py-5 sm:px-6 shadow">
         {children}
       </div>
     </>

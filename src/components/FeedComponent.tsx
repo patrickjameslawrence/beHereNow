@@ -28,14 +28,14 @@ export default function Feed({
               <DefaultAvatar />
               <div className="min-w-0 flex-1">
                 <Post.Author
-                  name="Patrick Lawrence"
-                  username="patricklawrence"
+                  name="BeHereNow"
+                  username="beHereNow"
                 />
                 <Post.Timestamp value={new Date().getTime().toLocaleString} />
               </div>
               <Post.Menu />
             </div>
-            <Post.Content value="Testing this out" />
+            <Post.Content value="Welcome to BeHereNow; the geolocation based social media app." />
           </Post>
         </div>
       </div>

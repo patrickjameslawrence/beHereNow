@@ -1,28 +1,42 @@
-import React from 'react'
-import { Menu as HeadlessUIMenu, Transition } from '@headlessui/react'
-import { Link } from 'gatsby'
+import React from "react";
+import { Menu as HeadlessUIMenu, Transition } from "@headlessui/react";
+import { Link } from "gatsby";
 
-import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
-import { ArrowTopRightOnSquareIcon, FlagIcon, StarIcon } from '@heroicons/react/24/outline'
-import { Option, Options } from "../types"
+import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import {
+  ArrowTopRightOnSquareIcon,
+  FlagIcon,
+  StarIcon,
+} from "@heroicons/react/24/outline";
+import type { Option } from "../types";
+import { Options } from "../lib/globals";
 
-import joinClassNames from '../lib/joinClassNames'
+import joinClassNames from "../lib/joinClassNames";
 
 export function Menu() {
   const options: Option[] = [
     {
       name: Options.AddToFavorites,
-      icon: <StarIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+      icon: (
+        <StarIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+      ),
     },
     {
       name: Options.Report,
-      icon: <FlagIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+      icon: (
+        <FlagIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+      ),
     },
     {
       name: Options.Share,
-      icon: <ArrowTopRightOnSquareIcon className="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
-    }
-  ]
+      icon: (
+        <ArrowTopRightOnSquareIcon
+          className="mr-3 h-5 w-5 text-gray-400"
+          aria-hidden="true"
+        />
+      ),
+    },
+  ];
 
   return (
     <>
@@ -51,8 +65,8 @@ export function Menu() {
                     {({ active }) => (
                       <button
                         className={joinClassNames(
-                          active ? 'bg-neutral-900 text-neutral-300' : '',
-                          'w-full text-neutral-400 text-left flex px-4 py-2 text-sm'
+                          active ? "bg-neutral-900 text-neutral-300" : "",
+                          "w-full text-neutral-400 text-left flex px-4 py-2 text-sm",
                         )}
                       >
                         {option.icon}
@@ -60,31 +74,27 @@ export function Menu() {
                       </button>
                     )}
                   </HeadlessUIMenu.Item>
-                )
+                );
               })}
             </HeadlessUIMenu.Items>
           </Transition>
         </HeadlessUIMenu>
       </div>
     </>
-  )
+  );
 }
-Post.Menu = Menu
+Post.Menu = Menu;
 
 export function Avatar({ src }) {
   return (
     <>
       <div className="flex-shrink-0">
-        <img
-          className="h-10 w-10 rounded-full"
-          src={src}
-          alt="Post avatar"
-        />
+        <img className="h-10 w-10 rounded-full" src={src} alt="Post avatar" />
       </div>
     </>
-  )
+  );
 }
-Post.Avatar = Avatar
+Post.Avatar = Avatar;
 
 export function Author({ name, username }) {
   return (
@@ -98,9 +108,9 @@ export function Author({ name, username }) {
         </Link>
       </p>
     </>
-  )
+  );
 }
-Post.Author = Author
+Post.Author = Author;
 
 function Timestamp({ value }) {
   return (
@@ -111,20 +121,18 @@ function Timestamp({ value }) {
         </Link>
       </p>
     </>
-  )
+  );
 }
-Post.Timestamp = Timestamp
+Post.Timestamp = Timestamp;
 
 export function Content({ value }) {
   return (
     <>
-      <p>
-        {value}
-      </p>
+      <p>{value}</p>
     </>
-  )
+  );
 }
-Post.Content = Content
+Post.Content = Content;
 
 export default function Post({ children }) {
   return (
@@ -133,5 +141,5 @@ export default function Post({ children }) {
         {children}
       </div>
     </>
-  )
+  );
 }

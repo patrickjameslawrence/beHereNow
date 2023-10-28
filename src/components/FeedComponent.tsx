@@ -1,6 +1,5 @@
 import React from "react";
 import { Tab } from "../types";
-import { BASE_API_URL } from "../lib/globals";
 
 import DefaultAvatar from "./assets/DefaultAvatar";
 
@@ -8,13 +7,13 @@ import Post from "./PostComponent";
 
 export default function Feed({ type }: { type: Tab }): React.ReactNode {
   // const [ posts, dispatch ] = React.useReducer(async (state, action) => {
-  fetch(BASE_API_URL + "posts")
-    .then((response) => response.json()) // one extra step
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((error) => console.error(error));
-  // })
+  // fetch(BASE_API_URL + "posts")
+  //   .then((response) => response.json()) // one extra step
+  //   .then((data) => {
+  //     console.log(data);
+  //   })
+  //   .catch((error) => console.error(error));
+  // // })
   return (
     <>
       <div className="grid grid-flow-row lg:grid-cols-2 grid-cols-1 gap-3">

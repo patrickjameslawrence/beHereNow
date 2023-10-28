@@ -6,7 +6,7 @@ import Layout from "../components/Layout";
 const IndexPage: React.FC<PageProps> = () => {
   return (
     <>
-      <Layout></Layout>
+      <Layout>{""}</Layout>
     </>
   );
 };

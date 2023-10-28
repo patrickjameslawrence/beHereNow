@@ -12,18 +12,18 @@ export default function Layout({
   description?: string;
   children: React.ReactNode;
 }): React.ReactNode {
-  const [ currentTab, setCurrentTab ] = React.useState(Tabs.Explore)
+  const [currentTab, setCurrentTab] = React.useState(Tabs.Explore);
   return (
     <>
       <div className="h-full p-7 text-white">
-          <Navbar currentTab={currentTab} updateCurrentTab={setCurrentTab} />
-          <header>
-            <h1 className="my-7 text-5xl font-bold">{currentTab}</h1>
-          </header>
-          <main>
-            <Feed type={currentTab} />
-            {children}
-          </main>
+        <Navbar currentTab={currentTab} updateCurrentTab={setCurrentTab} />
+        <header>
+          <h1 className="my-7 text-5xl font-bold">{currentTab}</h1>
+        </header>
+        <main>
+          <Feed type={currentTab} />
+          {children}
+        </main>
       </div>
     </>
   );

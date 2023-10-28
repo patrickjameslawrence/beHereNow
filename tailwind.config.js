@@ -7,11 +7,9 @@ module.exports = {
   theme: {
     extend: {
       backgroundColor: {
-        logo: 'bg-gradient-to-br from-violet-900 from-10% via-purple-900 via-60% to-purple-900 to-95%'
-      }
+        logo: "bg-gradient-to-br from-violet-900 from-10% via-purple-900 via-60% to-purple-900 to-95%",
+      },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-  ],
-}
+  plugins: [require("@tailwindcss/forms")],
+};

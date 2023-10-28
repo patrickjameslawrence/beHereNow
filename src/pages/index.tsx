@@ -1,19 +1,16 @@
-import * as React from "react"
-import type { HeadFC, PageProps } from "gatsby"
+import * as React from "react";
+import type { HeadFC, PageProps } from "gatsby";
 
-import Layout from "../components/Layout"
+import Layout from "../components/Layout";
 
 const IndexPage: React.FC<PageProps> = () => {
-
   return (
     <>
-      <Layout>
-          
-      </Layout>
+      <Layout></Layout>
     </>
-  )
-}
+  );
+};
 
-export default IndexPage
+export default IndexPage;
 
-export const Head: HeadFC = () => <title>BeHereNow</title>
+export const Head: HeadFC = () => <title>BeHereNow</title>;

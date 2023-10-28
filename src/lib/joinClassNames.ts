@@ -1,3 +1,3 @@
-export default function(...value: string[]): string {
-  return value.filter(Boolean).join(' ')
+export default function (...value: string[]): string {
+  return value.filter(Boolean).join(" ");
 }

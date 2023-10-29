@@ -1,12 +1,9 @@
 import React from "react";
 
-
-
 export type Tab = {
   title: Tabs;
   icon: React.ReactNode;
 };
-
 
 export type UserTab = {
   title: UserTabs;
@@ -14,7 +11,6 @@ export type UserTab = {
   to?: string | undefined;
   icon: React.ReactNode;
 };
-
 
 export type Option = {
   name: Options;

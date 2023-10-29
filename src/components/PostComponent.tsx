@@ -128,7 +128,7 @@ Post.Timestamp = Timestamp;
 export function Content({ value }) {
   return (
     <>
-      <p>{value}</p>
+      <p className="text-sm">{value}</p>
     </>
   );
 }

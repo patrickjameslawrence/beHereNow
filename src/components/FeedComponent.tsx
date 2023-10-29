@@ -6,9 +6,9 @@ import DefaultAvatar from "./assets/DefaultAvatar";
 import Post from "./PostComponent";
 
 export default function Feed({ type }: { type: Tab }): React.ReactNode {
-  // const [ posts, dispatch ] = React.useReducer(async (state, action) => {
+  type;
+  // // const [ posts, dispatch ] = React.useReducer(async (state, action) => {
   // fetch(BASE_API_URL + "posts")
-  //   .then((response) => response.json()) // one extra step
   //   .then((data) => {
   //     console.log(data);
   //   })

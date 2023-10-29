@@ -1,28 +1,39 @@
 import React from "react";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
-import { Tab } from "../types";
+import type { Tab, Post as PostType } from "../types";
 import { BASE_API_URL } from "../lib/globals";
 import Post from "./PostComponent";
 import DefaultAvatar from "./assets/DefaultAvatar";
 
+// const enum Actions {
+//   Add = "add"
+// }
+
 export default function Feed({ type }: { type: Tab }): React.ReactNode {
-  const [isLoading, setIsLoading ] = React.useState(true);
-  const updateIsLoading = () => setIsLoading(false);
+  // const [ posts, dispatch ] = React.useReducer((state, action) => {
+  //   switch (action.type) {
+  //     case Actions.Add:
+  //       return [ ...state];
+  //     default:
+  //       return posts;
+  //   }
+  // }, []);
+  const [ posts, setPosts ] = React.useState<PostType[]>([])
+
+  const [ isLoading, setIsLoading ] = React.useState(true);
+  const updateIsLoading = () => setIsLoading(!isLoading);
 
   React.useEffect(() => {
+    // dispatch({ type: Actions.Add })
     fetch(BASE_API_URL + "posts")
     .then((res: Response) => res.json())
-    .then((data) => {
-      console.log(data);
+    .then((posts: PostType[]) => {
+      setPosts(posts);
       updateIsLoading();
     })
     .catch((error: Error) => console.error(error));
   }, []);
   type;
-  // const [ posts, dispatch ] = React.useReducer(async (state, action) => {
-
-  
-  // })
 
   return (
     <>
@@ -42,7 +53,7 @@ export default function Feed({ type }: { type: Tab }): React.ReactNode {
               </div>
               <Post.Menu />
             </div>
-            <Post.Content value="Welcome to BeHereNow; the geolocation based social media app." />
+            <Post.Content value={posts[0]._id} />
           </Post>
           <Post>
             <div className="flex space-x-3 mb-1">

@@ -14,7 +14,8 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-import { Tab, UserTab, Tabs, UserTabs } from "../types";
+import type { Tab, UserTab } from "../types";
+import { Tabs, UserTabs } from "../lib/globals"
 
 import WideLogo from "../components/assets/WideLogo";
 

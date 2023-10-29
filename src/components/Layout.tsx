@@ -3,7 +3,7 @@ import React from "react";
 import Navbar from "./NavbarComponent";
 import Feed from "./FeedComponent";
 
-import { Tabs } from "../types";
+import { Tabs } from "../lib/globals";
 
 export default function Layout({
   children,

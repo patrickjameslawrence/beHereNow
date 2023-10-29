@@ -8,7 +8,8 @@ import {
   FlagIcon,
   StarIcon,
 } from "@heroicons/react/24/outline";
-import { Option, Options } from "../types";
+import type { Option } from "../types";
+import { Options } from "../lib/globals"
 
 import joinClassNames from "../lib/joinClassNames";
 

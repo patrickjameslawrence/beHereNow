@@ -15,6 +15,10 @@
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patrickjameslawrence/beHereNow.git"
+  },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",

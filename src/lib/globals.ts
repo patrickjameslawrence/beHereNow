@@ -1,5 +1,4 @@
-export const API_PORT = 3001;
-export const BASE_API_URL = `http://localhost:${API_PORT}/api/v1/`;
+export const BASE_API_URL = `https://beherenow-06dedcad18d1.herokuapp.com/api/v1/`;
 
 export enum Tabs {
   Explore = "Explore",

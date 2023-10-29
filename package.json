@@ -13,6 +13,7 @@
     "build": "npm run clean && gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
+    "format": "prettier . --write",
     "typecheck": "tsc --noEmit"
   },
   "repository": {
@@ -44,6 +45,12 @@
     "@types/react-dom": "^18.2.6",
     "mongodb": "^6.2.0",
     "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.6",
     "typescript": "^5.1.6"
+  },
+  "prettier": {
+    "plugins": [
+      "prettier-plugin-tailwindcss"
+    ]
   }
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import OnjectId from "mongodb"
+import OnjectId from "mongodb";
 
 export type Tab = {
   title: Tabs;

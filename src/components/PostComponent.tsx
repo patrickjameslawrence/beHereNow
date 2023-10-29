@@ -9,7 +9,7 @@ import {
   StarIcon,
 } from "@heroicons/react/24/outline";
 import type { Option } from "../types";
-import { Options } from "../lib/globals"
+import { Options } from "../lib/globals";
 
 import joinClassNames from "../lib/joinClassNames";
 
@@ -58,7 +58,7 @@ export function Menu() {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <HeadlessUIMenu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right outline outline-1 outline-neutral-900 bg-neutral-950 ring-1 ring-black ring-opacity-5">
+            <HeadlessUIMenu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right bg-neutral-950 outline outline-1 outline-neutral-900 ring-1 ring-black ring-opacity-5">
               {options.map((option) => {
                 return (
                   <HeadlessUIMenu.Item>
@@ -66,7 +66,7 @@ export function Menu() {
                       <button
                         className={joinClassNames(
                           active ? "bg-neutral-900 text-neutral-300" : "",
-                          "w-full text-neutral-400 text-left flex px-4 py-2 text-sm",
+                          "flex w-full px-4 py-2 text-left text-sm text-neutral-400",
                         )}
                       >
                         {option.icon}
@@ -100,7 +100,7 @@ export function Author({ name, username }) {
   return (
     <>
       <p className="text-sm">
-        <Link to="#" className="font-semibold text-white hover:underline mr-2">
+        <Link to="#" className="mr-2 font-semibold text-white hover:underline">
           {name}
         </Link>
         <Link to="#" className="text-gray-500 hover:underline">
@@ -134,10 +134,10 @@ export function Content({ value }) {
 }
 Post.Content = Content;
 
-export default function Post({ children }) {
+export default function Post({ id, children }) {
   return (
     <>
-      <div className="bg-neutral-950 outline outline-1 outline-neutral-900 px-4 py-5 sm:px-6 shadow">
+      <div className="bg-neutral-950 px-4 py-5 shadow outline outline-1 outline-neutral-900 sm:px-6">
         {children}
       </div>
     </>

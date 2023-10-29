@@ -15,7 +15,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 import type { Tab, UserTab } from "../types";
-import { Tabs, UserTabs } from "../lib/globals"
+import { Tabs, UserTabs } from "../lib/globals";
 
 import WideLogo from "../components/assets/WideLogo";
 
@@ -105,7 +105,7 @@ export default function Navbar({
               <div className="hidden md:ml-6 md:flex md:items-center">
                 <button
                   type="button"
-                  className="transition-colors relative rounded-full p-1 outline outline-1 outline-neutral-900 bg-neutral-900 hover:bg-neutral-800 text-neutral-400 hover:text-neutral-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+                  className="relative rounded-full bg-neutral-900 p-1 text-neutral-400 outline outline-1 outline-neutral-900 transition-colors hover:bg-neutral-800 hover:text-neutral-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
                 >
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">View notifications</span>
@@ -134,7 +134,7 @@ export default function Navbar({
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right outline outline-1 outline-neutral-900 bg-neutral-950 ring-1 ring-black ring-opacity-5">
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right bg-neutral-950 outline outline-1 outline-neutral-900 ring-1 ring-black ring-opacity-5">
                       {userTabs.map((userTab: UserTab): React.ReactNode => {
                         return (
                           <Menu.Item key={userTab.title}>
@@ -146,7 +146,7 @@ export default function Navbar({
                                       active
                                         ? "bg-neutral-900 text-neutral-300"
                                         : "",
-                                      "px-4 py-2 text-sm text-neutral-400 flex gap-3",
+                                      "flex gap-3 px-4 py-2 text-sm text-neutral-400",
                                     )}
                                   >
                                     {userTab.icon}
@@ -159,7 +159,7 @@ export default function Navbar({
                                       active
                                         ? "bg-neutral-900 text-neutral-300"
                                         : "",
-                                      "w-full text-left px-4 py-2 text-sm text-neutral-400 flex gap-3",
+                                      "flex w-full gap-3 px-4 py-2 text-left text-sm text-neutral-400",
                                     )}
                                   >
                                     {userTab.icon}
@@ -175,7 +175,7 @@ export default function Navbar({
               </div>
               <div className="-mr-2 flex items-center md:hidden">
                 {/* Mobile menu button */}
-                <Disclosure.Button className="relative inline-flex items-center justify-center outline outline-1 outline-neutral-900 p-2 rounded-full text-neutral-400 hover:bg-neutral-900 hover:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500">
+                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-full p-2 text-neutral-400 outline outline-1 outline-neutral-900 hover:bg-neutral-900 hover:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open main menu</span>
                   {open ? (
@@ -200,9 +200,9 @@ export default function Navbar({
                     }
                     className={joinClassNames(
                       tab.title === currentTab
-                        ? "text-purple-700 border-purple-700"
+                        ? "border-purple-700 text-purple-700"
                         : "text-neutral-500 hover:border-purple-500 hover:text-purple-700",
-                      "flex gap-3 border-l-4 bg-neutral-950 border-neutral-900 hover:bg-neutral-900 py-2 pl-3 pr-4 text-base text-left font-medium w-full transition-colors",
+                      "flex w-full gap-3 border-l-4 border-neutral-900 bg-neutral-950 py-2 pl-3 pr-4 text-left text-base font-medium transition-colors hover:bg-neutral-900",
                     )}
                   >
                     {tab.icon}
@@ -212,7 +212,7 @@ export default function Navbar({
               })}
             </div>
             <div className="border-t border-neutral-900">
-              <div className="flex items-center px-4 hover:bg-neutral-900 transition-colors pb-4 pt-3">
+              <div className="flex items-center px-4 pb-4 pt-3 transition-colors hover:bg-neutral-900">
                 <Link to="/profile">
                   <div className="flex-shrink-0">
                     <img
@@ -236,7 +236,7 @@ export default function Navbar({
                 </div>
                 <button
                   type="button"
-                  className="transition-colors relative ml-auto flex-shrink-0 rounded-full bg-neutral-900 hover:bg-neutral-800 p-1 text-neutral-400 hover:text-neutral-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+                  className="relative ml-auto flex-shrink-0 rounded-full bg-neutral-900 p-1 text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-neutral-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
                 >
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">View notifications</span>
@@ -250,7 +250,7 @@ export default function Navbar({
                       key={userTab.title}
                       as={Link}
                       to={userTab.to}
-                      className="flex gap-3 px-4 py-2 text-base font-medium text-neutral-500 hover:bg-neutral-900 hover:border-purple-500 hover:text-purple-700 border-l-4 border-neutral-900 transition-colors"
+                      className="flex gap-3 border-l-4 border-neutral-900 px-4 py-2 text-base font-medium text-neutral-500 transition-colors hover:border-purple-500 hover:bg-neutral-900 hover:text-purple-700"
                     >
                       {userTab.icon}
                       {userTab.title}
@@ -259,7 +259,7 @@ export default function Navbar({
                     <Disclosure.Button
                       key={userTab.title}
                       as="button"
-                      className="flex gap-3 w-full text-left px-4 py-2 text-base font-medium text-neutral-500 hover:bg-neutral-900 hover:border-purple-500 hover:text-purple-700 border-l-4 border-neutral-900 transition-colors"
+                      className="flex w-full gap-3 border-l-4 border-neutral-900 px-4 py-2 text-left text-base font-medium text-neutral-500 transition-colors hover:border-purple-500 hover:bg-neutral-900 hover:text-purple-700"
                     >
                       {userTab.icon}
                       {userTab.title}

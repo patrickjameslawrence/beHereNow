@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArrowPathIcon } from '@heroicons/react/24/outline'
+import { ArrowPathIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import type { Tab, Post as PostType } from '../types'
 import { BASE_API_URL } from '../lib/globals'
 import Post from './PostComponent'
@@ -8,6 +8,12 @@ import DefaultAvatar from './assets/DefaultAvatar'
 // const enum Actions {
 //   Add = "add"
 // }
+
+const enum PostsLoadState {
+  Loading = 1,
+  Loaded,
+  Error,
+}
 
 export default function Feed({ type }: { type: Tab }): React.ReactNode {
   // const [ posts, dispatch ] = React.useReducer((state, action) => {
@@ -20,8 +26,8 @@ export default function Feed({ type }: { type: Tab }): React.ReactNode {
   // }, []);
   const [posts, setPosts] = React.useState<PostType[]>([])
 
-  const [isLoading, setIsLoading] = React.useState(true)
-  const updateIsLoading = () => setIsLoading(!isLoading)
+  const [postsLoadState, setPostsLoadState] = React.useState<PostsLoadState>(PostsLoadState.Loading)
+  const updatePostsLoadState = (value: PostsLoadState) => setPostsLoadState(value)
 
   React.useEffect(() => {
     // dispatch({ type: Actions.Add })
@@ -29,17 +35,18 @@ export default function Feed({ type }: { type: Tab }): React.ReactNode {
       .then((res: Response) => res.json())
       .then((posts: PostType[]) => {
         setPosts(posts)
-        updateIsLoading()
+        updatePostsLoadState(PostsLoadState.Loaded)
       })
-      .catch((error: Error) => console.error(error))
+      .catch((error: Error) => {
+        updatePostsLoadState(PostsLoadState.Error)
+        console.error(error)
+      })
   }, [])
   type
 
   return (
     <>
-      {isLoading ? (
-        <ArrowPathIcon className='mx-auto my-32 h-10 w-10 animate-spin lg:h-5 lg:w-5' aria-hidden='true' />
-      ) : (
+      {postsLoadState === PostsLoadState.Loaded ? (
         <div className='grid grid-flow-row grid-cols-1 gap-3 lg:grid-cols-2'>
           {posts.map((post: PostType): React.ReactNode => {
             return (
@@ -59,6 +66,10 @@ export default function Feed({ type }: { type: Tab }): React.ReactNode {
             )
           })}
         </div>
+      ) : postsLoadState === PostsLoadState.Loading ? (
+        <ArrowPathIcon className='mx-auto my-32 h-10 w-10 animate-spin lg:h-5 lg:w-5' aria-hidden='true' />
+      ) : (
+        <ExclamationTriangleIcon className='mx-auto my-32 h-10 w-10 lg:h-5 lg:w-5' aria-hidden='true' />
       )}
     </>
   )

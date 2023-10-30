@@ -10,9 +10,9 @@ import DefaultAvatar from './assets/DefaultAvatar'
 // }
 
 const enum PostsLoadState {
-  Loading = 1,
-  Loaded,
-  Error,
+  Loading = 'Loading',
+  Loaded = 'Loaded',
+  Error = 'Error',
 }
 
 export default function Feed({ type }: { type: Tab }): React.ReactNode {
@@ -34,6 +34,7 @@ export default function Feed({ type }: { type: Tab }): React.ReactNode {
     fetch(BASE_API_URL + 'posts')
       .then((res: Response) => res.json())
       .then((posts: PostType[]) => {
+        console.log(posts)
         setPosts(posts)
         updatePostsLoadState(PostsLoadState.Loaded)
       })

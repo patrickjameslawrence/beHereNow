@@ -1,8 +1,6 @@
 import * as React from 'react'
 import type { HeadFC, PageProps } from 'gatsby'
 import { Link } from 'gatsby'
-import joinClassNames from '../lib/joinClassNames'
-import getBeHereNowGradient from '../lib/getBeHereNowGradient'
 
 const NotFoundPage: React.FC<PageProps> = () => {
   return (

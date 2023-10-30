@@ -1,6 +1,9 @@
+const port = 8050
 const apiVersion = '1.0.0'
-// export const BASE_API_URL = "https://beherenow-06dedcad18d1.herokuapp.com/api/v" + apiVersion + "/";
-export const BASE_API_URL = 'http://localhost:8050/api/v' + apiVersion + '/'
+export const BASE_API_URL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://beherenow-06dedcad18d1.herokuapp.com/api/v' + apiVersion
+    : 'http://localhost:' + port + '/api/v' + apiVersion
 
 export enum Tabs {
   Explore = 'Explore',
@@ -11,7 +14,7 @@ export enum Tabs {
 export enum UserTabs {
   Profile = 'Profile',
   Settings = 'Settings',
-  SignOut = 'Sign out',
+  LogOut = 'Log out',
 }
 export enum Options {
   AddToFavorites = 'Add to Favorites',

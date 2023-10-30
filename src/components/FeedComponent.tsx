@@ -31,10 +31,11 @@ export default function Feed({ type }: { type: Tab }): React.ReactNode {
 
   React.useEffect(() => {
     // dispatch({ type: Actions.Add })
-    fetch(BASE_API_URL + 'posts')
+    fetch(BASE_API_URL + '/posts', {
+      method: 'GET',
+    })
       .then((res: Response) => res.json())
       .then((posts: PostType[]) => {
-        console.log(posts)
         setPosts(posts)
         updatePostsLoadState(PostsLoadState.Loaded)
       })
@@ -50,26 +51,24 @@ export default function Feed({ type }: { type: Tab }): React.ReactNode {
         <div className='grid grid-flow-row grid-cols-1 gap-3 lg:grid-cols-2'>
           {posts.map((post: PostType): React.ReactNode => {
             return (
-              <>
-                <Post id={post._id}>
-                  <div className='mb-1 flex space-x-3'>
-                    <DefaultAvatar />
-                    <div className='min-w-0 flex-1'>
-                      <Post.Author name={post.author.name} username={post.author.credentials.username} />
-                      <Post.Timestamp value={post.timestamp} />
-                    </div>
-                    <Post.Menu />
+              <Post id={post._id} key={post._id}>
+                <div className='mb-1 flex space-x-3'>
+                  <DefaultAvatar />
+                  <div className='min-w-0 flex-1'>
+                    <Post.Author name={post.author.name} username={post.author.credentials.username} />
+                    <Post.Timestamp value={post.timestamp} />
                   </div>
-                  <Post.Content value={post.content} />
-                </Post>
-              </>
+                  <Post.Menu />
+                </div>
+                <Post.Content value={post.content} />
+              </Post>
             )
           })}
         </div>
       ) : postsLoadState === PostsLoadState.Loading ? (
         <ArrowPathIcon className='mx-auto my-32 h-10 w-10 animate-spin lg:h-5 lg:w-5' aria-hidden='true' />
       ) : (
-        <ExclamationTriangleIcon className='mx-auto my-32 h-10 w-10 lg:h-5 lg:w-5' aria-hidden='true' />
+        <ExclamationTriangleIcon className='mx-auto my-32 h-10 w-10 animate-pulse lg:h-5 lg:w-5' aria-hidden='true' />
       )}
     </>
   )

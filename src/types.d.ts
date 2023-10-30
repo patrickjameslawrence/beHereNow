@@ -8,7 +8,6 @@ export type Tab = {
 
 export type UserTab = {
   title: UserTabs
-  isLink: boolean
   to?: string | undefined
   icon: React.ReactNode
 }

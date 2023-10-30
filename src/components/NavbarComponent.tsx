@@ -17,7 +17,7 @@ import {
 import type { Tab, UserTab } from '../types'
 import { Tabs, UserTabs } from '../lib/globals'
 
-import WideLogo from '../components/assets/WideLogo'
+import WideLogo from './assets/NavbarWideLogo'
 
 import joinClassNames from '../lib/joinClassNames'
 
@@ -49,25 +49,23 @@ export default function Navbar({
   const userTabs: UserTab[] = [
     {
       title: UserTabs.Profile,
-      isLink: true,
       to: '/profile',
       icon: <UserCircleIcon className='h-6 w-6' aria-hidden='true' />,
     },
     {
       title: UserTabs.Settings,
-      isLink: true,
       to: '/settings',
       icon: <Cog6ToothIcon className='h-6 w-6' aria-hidden='true' />,
     },
     {
-      title: UserTabs.SignOut,
-      isLink: false,
+      title: UserTabs.LogOut,
+      to: '/log-in',
       icon: <ArrowRightOnRectangleIcon className='h-6 w-6' aria-hidden='true' />,
     },
   ]
 
   return (
-    <Disclosure as='nav' className='bg-neutral-950 outline outline-1 outline-neutral-900 transition-transform'>
+    <Disclosure as='nav' className='bg-neutral-950 outline outline-1 outline-neutral-900'>
       {({ open }) => (
         <>
           <div className='mx-auto max-w-7xl px-4 md:px-6 lg:px-8'>
@@ -131,30 +129,19 @@ export default function Navbar({
                       {userTabs.map((userTab: UserTab): React.ReactNode => {
                         return (
                           <Menu.Item key={userTab.title}>
-                            {userTab.isLink
-                              ? ({ active }) => (
-                                  <Link
-                                    to={userTab.to}
-                                    className={joinClassNames(
-                                      active ? 'bg-neutral-900 text-neutral-300' : '',
-                                      'flex gap-3 px-4 py-2 text-sm text-neutral-400',
-                                    )}
-                                  >
-                                    {userTab.icon}
-                                    {userTab.title}
-                                  </Link>
-                                )
-                              : ({ active }) => (
-                                  <button
-                                    className={joinClassNames(
-                                      active ? 'bg-neutral-900 text-neutral-300' : '',
-                                      'flex w-full gap-3 px-4 py-2 text-left text-sm text-neutral-400',
-                                    )}
-                                  >
-                                    {userTab.icon}
-                                    {userTab.title}
-                                  </button>
+                            {({ active }) => (
+                              <Link
+                                to={userTab.to}
+                                onClick={() => console.log('User logging out')}
+                                className={joinClassNames(
+                                  active ? 'bg-neutral-900 text-neutral-300' : '',
+                                  'flex gap-3 px-4 py-2 text-sm text-neutral-400',
                                 )}
+                              >
+                                {userTab.icon}
+                                {userTab.title}
+                              </Link>
+                            )}
                           </Menu.Item>
                         )
                       })}
@@ -228,21 +215,13 @@ export default function Navbar({
               </div>
               <div className='mt-3 space-y-1'>
                 {userTabs.map((userTab: UserTab): React.ReactNode => {
-                  return userTab.isLink ? (
+                  return (
                     <Disclosure.Button
                       key={userTab.title}
                       as={Link}
+                      onClick={() => console.log('User logging out')}
                       to={userTab.to}
                       className='flex gap-3 border-l-4 border-neutral-900 px-4 py-2 text-base font-medium text-neutral-500 transition-colors hover:border-purple-500 hover:bg-neutral-900 hover:text-purple-700'
-                    >
-                      {userTab.icon}
-                      {userTab.title}
-                    </Disclosure.Button>
-                  ) : (
-                    <Disclosure.Button
-                      key={userTab.title}
-                      as='button'
-                      className='flex w-full gap-3 border-l-4 border-neutral-900 px-4 py-2 text-left text-base font-medium text-neutral-500 transition-colors hover:border-purple-500 hover:bg-neutral-900 hover:text-purple-700'
                     >
                       {userTab.icon}
                       {userTab.title}

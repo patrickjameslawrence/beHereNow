@@ -48,7 +48,7 @@ export function Menu() {
             <HeadlessUIMenu.Items className='absolute right-0 z-10 mt-2 w-56 origin-top-right bg-neutral-950 outline outline-1 outline-neutral-900 ring-1 ring-black ring-opacity-5'>
               {options.map((option) => {
                 return (
-                  <HeadlessUIMenu.Item>
+                  <HeadlessUIMenu.Item key={option.name}>
                     {({ active }) => (
                       <button
                         className={joinClassNames(
@@ -124,7 +124,7 @@ Post.Content = Content
 export default function Post({ id, children }) {
   return (
     <>
-      <div className='bg-neutral-950 px-4 py-5 shadow outline outline-1 outline-neutral-900 sm:px-6'>{children}</div>
+      <div className='bg-neutral-950 px-4 py-5 outline outline-1 outline-neutral-900 sm:px-6'>{children}</div>
     </>
   )
 }

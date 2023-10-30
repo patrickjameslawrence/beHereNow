@@ -42,7 +42,6 @@ export default function Feed({ type }: { type: Tab }): React.ReactNode {
         console.error(error)
       })
   }, [])
-  type
 
   return (
     <>

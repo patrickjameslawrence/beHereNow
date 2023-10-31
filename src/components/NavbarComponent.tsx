@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import {
+  ArrowLeftOnRectangleIcon,
   ArrowRightOnRectangleIcon,
   Bars3Icon,
   BellIcon,
@@ -12,16 +13,19 @@ import {
   UserCircleIcon,
   UserGroupIcon,
   XMarkIcon,
+  UserPlusIcon,
 } from '@heroicons/react/24/outline'
 
-import type { Tab, UserTab } from '../types'
-import { Tabs, UserTabs } from '../lib/globals'
+import type { Tab, UserTab, Button } from '../types'
+import { Tabs, UserTabs, Buttons } from '../lib/globals'
 
 import WideLogo from './assets/NavbarWideLogo'
 import DesktopDefaultAvatar from './assets/NavbarDesktopDefaultAvatar'
 import MobileDefaultAvatar from './assets/NavbarMobileDefaultAvatar'
 
 import joinClassNames from '../lib/joinClassNames'
+
+const isLoggedIn = true
 
 export default function Navbar({
   currentTab,
@@ -66,17 +70,30 @@ export default function Navbar({
     },
   ]
 
+  const buttons: Button[] = [
+    {
+      text: Buttons.LogIn,
+      to: '/log-in',
+      icon: <ArrowLeftOnRectangleIcon className='h-6 w-6' aria-hidden='true' />,
+    },
+    {
+      text: Buttons.CreateAccount,
+      to: '/create-account',
+      icon: <UserPlusIcon className='h-6 w-6' aria-hidden='true' />,
+    },
+  ]
+
   return (
     <Disclosure as='nav' className='bg-neutral-950 outline outline-1 outline-neutral-900'>
       {({ open }) => (
         <>
-          <div className='mx-auto max-w-7xl px-4 md:px-6 lg:px-8'>
+          <div className='mx-auto max-w-7xl px-4 lg:px-8'>
             <div className='flex h-16 justify-between'>
               <div className='flex'>
                 <div className='flex flex-shrink-0 items-center'>
                   <WideLogo />
                 </div>
-                <div className='hidden md:ml-6 md:flex md:space-x-8'>
+                <div className='hidden lg:ml-6 lg:flex lg:space-x-8'>
                   {tabs.map((tab: Tab): React.ReactNode => {
                     return (
                       <button
@@ -95,59 +112,73 @@ export default function Navbar({
                   })}
                 </div>
               </div>
-              <div className='hidden md:ml-6 md:flex md:items-center'>
-                <button
-                  type='button'
-                  className='relative rounded-full bg-neutral-900 p-1 text-neutral-400 outline outline-1 outline-neutral-900 transition-colors hover:bg-neutral-800 hover:text-neutral-300 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:ring-offset-2'
-                >
-                  <span className='absolute -inset-1.5' />
-                  <span className='sr-only'>View notifications</span>
-                  <BellIcon className='h-6 w-6' aria-hidden='true' />
-                </button>
-
-                {/* Profile dropdown */}
-                <Menu as='div' className='relative ml-3'>
-                  <div>
-                    <Menu.Button className='relative flex rounded-full text-sm focus:outline-none focus:ring-1 focus:ring-purple-500'>
+              <div className='hidden lg:ml-6 lg:flex lg:items-center lg:gap-3'>
+                {isLoggedIn ? (
+                  <>
+                    <button
+                      type='button'
+                      className='relative rounded-full bg-neutral-900 p-1 text-neutral-400 outline outline-1 outline-neutral-900 transition-colors hover:bg-neutral-800 hover:text-neutral-300 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:ring-offset-2'
+                    >
                       <span className='absolute -inset-1.5' />
-                      <span className='sr-only'>Open user menu</span>
-                      <DesktopDefaultAvatar />
-                    </Menu.Button>
-                  </div>
-                  <Transition
-                    as={React.Fragment}
-                    enter='transition ease-out duration-200'
-                    enterFrom='transform opacity-0 scale-95'
-                    enterTo='transform opacity-100 scale-100'
-                    leave='transition ease-in duration-75'
-                    leaveFrom='transform opacity-100 scale-100'
-                    leaveTo='transform opacity-0 scale-95'
-                  >
-                    <Menu.Items className='absolute right-0 z-10 mt-2 w-48 origin-top-right bg-neutral-950 outline outline-1 outline-neutral-900 ring-1 ring-black ring-opacity-5'>
-                      {userTabs.map((userTab: UserTab): React.ReactNode => {
-                        return (
-                          <Menu.Item key={userTab.title}>
-                            {({ active }) => (
-                              <Link
-                                to={userTab.to}
-                                onClick={() => console.log('User logging out')}
-                                className={joinClassNames(
-                                  active ? 'bg-neutral-900 text-neutral-300' : '',
-                                  'flex gap-3 px-4 py-2 text-sm text-neutral-400',
+                      <span className='sr-only'>View notifications</span>
+                      <BellIcon className='h-6 w-6' aria-hidden='true' />
+                    </button>
+                    <Menu as='div' className='relative ml-3'>
+                      <div>
+                        <Menu.Button className='relative flex rounded-full text-sm focus:outline-none focus:ring-1 focus:ring-purple-500'>
+                          <span className='absolute -inset-1.5' />
+                          <span className='sr-only'>Open user menu</span>
+                          <DesktopDefaultAvatar />
+                        </Menu.Button>
+                      </div>
+                      <Transition
+                        as={React.Fragment}
+                        enter='transition ease-out duration-200'
+                        enterFrom='transform opacity-0 scale-95'
+                        enterTo='transform opacity-100 scale-100'
+                        leave='transition ease-in duration-75'
+                        leaveFrom='transform opacity-100 scale-100'
+                        leaveTo='transform opacity-0 scale-95'
+                      >
+                        <Menu.Items className='absolute right-0 z-10 mt-2 w-48 origin-top-right bg-neutral-950 outline outline-1 outline-neutral-900 ring-1 ring-black ring-opacity-5'>
+                          {userTabs.map((userTab: UserTab): React.ReactNode => {
+                            return (
+                              <Menu.Item key={userTab.title}>
+                                {({ active }) => (
+                                  <Link
+                                    to={userTab.to}
+                                    onClick={() => console.log('User logging out')}
+                                    className={joinClassNames(
+                                      active ? 'bg-neutral-900 text-neutral-300' : '',
+                                      'flex gap-3 px-4 py-2 text-sm text-neutral-400',
+                                    )}
+                                  >
+                                    {userTab.icon}
+                                    {userTab.title}
+                                  </Link>
                                 )}
-                              >
-                                {userTab.icon}
-                                {userTab.title}
-                              </Link>
-                            )}
-                          </Menu.Item>
-                        )
-                      })}
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
+                              </Menu.Item>
+                            )
+                          })}
+                        </Menu.Items>
+                      </Transition>
+                    </Menu>
+                  </>
+                ) : (
+                  buttons.map((button: Button): React.ReactNode => {
+                    return (
+                      <Link
+                        className='inline-flex gap-3 bg-neutral-900 px-3 py-3 text-sm text-neutral-400 outline outline-1 outline-neutral-800 hover:bg-neutral-800 hover:text-neutral-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500'
+                        to={button.to}
+                      >
+                        {button.icon}
+                        {button.text}
+                      </Link>
+                    )
+                  })
+                )}
               </div>
-              <div className='-mr-2 flex items-center md:hidden'>
+              <div className='-mr-2 flex items-center lg:hidden'>
                 {/* Mobile menu button */}
                 <Disclosure.Button className='relative inline-flex items-center justify-center rounded-full p-2 text-neutral-400 outline outline-1 outline-neutral-900 hover:bg-neutral-900 hover:text-neutral-500 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-purple-500'>
                   <span className='absolute -inset-0.5' />
@@ -162,7 +193,7 @@ export default function Navbar({
             </div>
           </div>
 
-          <Disclosure.Panel className='md:hidden'>
+          <Disclosure.Panel className='lg:hidden'>
             <div className='space-y-1 pb-3 pt-2'>
               {tabs.map((tab: Tab): React.ReactNode => {
                 return (
@@ -184,46 +215,66 @@ export default function Navbar({
               })}
             </div>
             <div className='border-t border-neutral-900'>
-              <div className='flex items-center px-4 pb-4 pt-3 transition-colors hover:bg-neutral-900'>
-                <Link to='/profile'>
-                  <div className='flex-shrink-0'>
-                    <MobileDefaultAvatar />
-                  </div>
-                </Link>
-                <div className='ml-3'>
-                  <Link to='/profile'>
-                    <div className='text-base font-medium text-white'>John Doe</div>
-                  </Link>
-                  <Link to='/profile'>
-                    <div className='text-sm font-medium text-neutral-500'>johndoe@example.com</div>
-                    <div className='text-sm font-medium text-neutral-500'>@johndoe</div>
-                  </Link>
-                </div>
-                <button
-                  type='button'
-                  className='relative ml-auto flex-shrink-0 rounded-full bg-neutral-900 p-1 text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-neutral-300 focus:outline-none focus:ring-1 focus:ring-purple-500'
-                >
-                  <span className='absolute -inset-1.5' />
-                  <span className='sr-only'>View notifications</span>
-                  <BellIcon className='h-6 w-6' aria-hidden='true' />
-                </button>
-              </div>
-              <div className='mt-3 space-y-1'>
-                {userTabs.map((userTab: UserTab): React.ReactNode => {
-                  return (
-                    <Disclosure.Button
-                      key={userTab.title}
-                      as={Link}
-                      onClick={() => console.log('User logging out')}
-                      to={userTab.to}
-                      className='flex gap-3 border-l-4 border-neutral-900 px-4 py-2 text-base font-medium text-neutral-500 transition-colors hover:border-purple-500 hover:bg-neutral-900 hover:text-purple-700'
+              {isLoggedIn ? (
+                <>
+                  <div className='flex items-center px-4 pb-4 pt-3 transition-colors hover:bg-neutral-900'>
+                    <Link to='/profile'>
+                      <div className='flex-shrink-0'>
+                        <MobileDefaultAvatar />
+                      </div>
+                    </Link>
+                    <div className='ml-3'>
+                      <Link to='/profile'>
+                        <div className='text-base font-medium text-white'>John Doe</div>
+                      </Link>
+                      <Link to='/profile'>
+                        <div className='text-sm font-medium text-neutral-500'>johndoe@example.com</div>
+                        <div className='text-sm font-medium text-neutral-500'>@johndoe</div>
+                      </Link>
+                    </div>
+                    <button
+                      type='button'
+                      className='relative ml-auto flex-shrink-0 rounded-full bg-neutral-900 p-1 text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-neutral-300 focus:outline-none focus:ring-1 focus:ring-purple-500'
                     >
-                      {userTab.icon}
-                      {userTab.title}
-                    </Disclosure.Button>
+                      <span className='absolute -inset-1.5' />
+                      <span className='sr-only'>View notifications</span>
+                      <BellIcon className='h-6 w-6' aria-hidden='true' />
+                    </button>
+                  </div>
+                  <div className='mt-3 space-y-1'>
+                    {userTabs.map((userTab: UserTab): React.ReactNode => {
+                      return (
+                        <Disclosure.Button
+                          key={userTab.title}
+                          as={Link}
+                          onClick={() => console.log('User logging out')}
+                          to={userTab.to}
+                          className='flex gap-3 border-l-4 border-neutral-900 px-4 py-2 text-base font-medium text-neutral-500 transition-colors hover:border-purple-500 hover:bg-neutral-900 hover:text-purple-700'
+                        >
+                          {userTab.icon}
+                          {userTab.title}
+                        </Disclosure.Button>
+                      )
+                    })}
+                  </div>
+                </>
+              ) : (
+                buttons.map((button: Button): React.ReactNode => {
+                  return (
+                    <>
+                      <div>
+                        <Link
+                          className='flex items-center gap-3 border-l-4 border-neutral-900 px-4 py-2 text-base font-medium text-neutral-500 transition-colors hover:border-purple-500 hover:bg-neutral-900 hover:text-purple-700'
+                          to={button.to}
+                        >
+                          {button.icon}
+                          {button.text}
+                        </Link>
+                      </div>
+                    </>
                   )
-                })}
-              </div>
+                })
+              )}
             </div>
           </Disclosure.Panel>
         </>

@@ -2,6 +2,7 @@ import React from 'react'
 import { PlusIcon } from '@heroicons/react/24/outline'
 
 import Navbar from './NavbarComponent'
+import NewPost from './NewPostComponent'
 import Feed from './FeedComponent'
 
 import { Tabs } from '../lib/globals'

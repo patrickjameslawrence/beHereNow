@@ -1,5 +1,5 @@
 import React from 'react'
-import OnjectId from 'mongodb'
+import ObjectId from 'mongodb'
 
 export type Tab = {
   title: Tabs
@@ -16,17 +16,23 @@ export type Option = {
   name: Options
   icon: React.ReactNode
 }
+export type Action = {
+  name: Actions
+  icon: React.ReactNode
+}
 
 // API
-
-const ObjectId = mongodb.ObjectId
 
 type Post = {
   _id: ObjectId
   author: User
-  content: string
+  content: Content
   location: Location
   timestamp: Date
+}
+type Content = {
+  text: string
+  location: Location
 }
 type Location = {
   isUsing: boolean

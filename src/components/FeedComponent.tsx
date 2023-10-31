@@ -3,7 +3,7 @@ import { ArrowPathIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outl
 import type { Tab, Post as PostType } from '../types'
 import { BASE_API_URL } from '../lib/globals'
 import Post from './PostComponent'
-import DefaultAvatar from './assets/DefaultAvatar'
+import DefaultAvatar from './assets/PostDefaultAvatar'
 
 // const enum Actions {
 //   Add = "add"
@@ -60,7 +60,7 @@ export default function Feed({ type }: { type: Tab }): React.ReactNode {
                   </div>
                   <Post.Menu />
                 </div>
-                <Post.Content value={post.content} />
+                <Post.Content _id={post._id} text={post.content.text} location={post.content.location} />
               </Post>
             )
           })}

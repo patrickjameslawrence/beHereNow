@@ -1,18 +1,29 @@
 import React from 'react'
 import { Menu as HeadlessUIMenu, Transition } from '@headlessui/react'
 import { Link } from 'gatsby'
+import type { Location } from '../types'
+import { ObjectId } from 'mongodb'
 
-import { EllipsisVerticalIcon } from '@heroicons/react/20/solid'
-import { ArrowTopRightOnSquareIcon, FlagIcon, StarIcon } from '@heroicons/react/24/outline'
-import type { Option } from '../types'
-import { Options } from '../lib/globals'
+import { Loader } from '@googlemaps/js-api-loader'
+
+import {
+  ArrowPathRoundedSquareIcon,
+  ArrowTopRightOnSquareIcon,
+  ChatBubbleOvalLeftEllipsisIcon,
+  FlagIcon,
+  HeartIcon,
+  StarIcon,
+  EllipsisVerticalIcon,
+} from '@heroicons/react/24/outline'
+import type { Option, Action } from '../types'
+import { Options, Actions } from '../lib/globals'
 
 import joinClassNames from '../lib/joinClassNames'
 
 export function Menu() {
   const options: Option[] = [
     {
-      name: Options.AddToFavorites,
+      name: Options.Bookmark,
       icon: <StarIcon className='mr-3 h-5 w-5 text-gray-400' aria-hidden='true' />,
     },
     {
@@ -30,7 +41,7 @@ export function Menu() {
       <div className='flex flex-shrink-0 self-center'>
         <HeadlessUIMenu as='div' className='relative inline-block text-left'>
           <div>
-            <HeadlessUIMenu.Button className='-m-2 flex items-center rounded-full p-2 text-gray-400 hover:text-gray-600'>
+            <HeadlessUIMenu.Button className='-m-2 flex items-center rounded-full p-2 text-gray-400 hover:text-gray-300'>
               <span className='sr-only'>Open options</span>
               <EllipsisVerticalIcon className='h-5 w-5' aria-hidden='true' />
             </HeadlessUIMenu.Button>
@@ -112,19 +123,79 @@ function Timestamp({ value }) {
 }
 Post.Timestamp = Timestamp
 
-export function Content({ value }) {
+export function Content({ _id, text, location }: { _id: ObjectId; text: string; location: Location }) {
+  const loader = new Loader({
+    apiKey: 'AIzaSyC6ujuGGn488bptn_U3pTaMu1BPQZG6UrY',
+    version: 'weekly',
+  })
+
+  if (location.isUsing) {
+    loader.importLibrary('maps').then(async () => {
+      const { Map } = (await google.maps.importLibrary('maps')) as google.maps.MapsLibrary
+      new Map(document.getElementById(_id.toString()) as HTMLElement, {
+        center: { lat: location.latitude, lng: location.longitude },
+        zoom: 15,
+        mapId: '96eff334ed27a8d7',
+        gestureHandling: 'none',
+        mapTypeControl: false,
+        fullscreenControl: true,
+        streetViewControl: false,
+        clickableIcons: false,
+        zoomControl: false,
+        keyboardShortcuts: false,
+      })
+    })
+  }
+
   return (
     <>
-      <p className='text-sm'>{value}</p>
+      <div className='my-3 flex h-48 justify-between gap-3'>
+        <p className='min-h-full flex-1 overflow-y-auto overscroll-y-auto break-normal bg-gradient-to-b text-sm'>
+          {text}
+        </p>
+        {location.isUsing && (
+          <div
+            id={_id.toString()}
+            className='block h-full w-64 rounded-xl bg-neutral-900 outline outline-1 outline-neutral-800'
+          ></div>
+        )}
+      </div>
     </>
   )
 }
 Post.Content = Content
 
 export default function Post({ id, children }) {
+  const actions: Action[] = [
+    {
+      name: Actions.Like,
+      icon: <HeartIcon className='h-5 w-5 text-gray-400 hover:text-gray-300' aria-hidden='true' />,
+    },
+    {
+      name: Actions.Repost,
+      icon: <ArrowPathRoundedSquareIcon className='h-5 w-5 text-gray-400 hover:text-gray-300' aria-hidden='true' />,
+    },
+    {
+      name: Actions.Comment,
+      icon: <ChatBubbleOvalLeftEllipsisIcon className='h-5 w-5 text-gray-400 hover:text-gray-300' aria-hidden='true' />,
+    },
+  ]
+
   return (
     <>
-      <div className='bg-neutral-950 px-4 py-5 outline outline-1 outline-neutral-900 sm:px-6'>{children}</div>
+      <div className='bg-neutral-950 p-3 outline outline-1 outline-neutral-900 sm:px-6'>
+        {children}
+        <div className='border-1 flex w-full justify-around border-t border-neutral-900 pt-3'>
+          {actions.map((action) => {
+            return (
+              <div key={action.name}>
+                <span className='sr-only'>{action.name}</span>
+                {action.icon}
+              </div>
+            )
+          })}
+        </div>
+      </div>
     </>
   )
 }

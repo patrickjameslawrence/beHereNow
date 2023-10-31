@@ -28,6 +28,10 @@ export enum Actions {
   Repost = 'Repost',
   Comment = 'Comment',
 }
+export enum Buttons {
+  LogIn = 'Log in',
+  CreateAccount = 'Create account',
+}
 
 // API
 const enum Countries {

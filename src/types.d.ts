@@ -21,6 +21,12 @@ export type Action = {
   icon: React.ReactNode
 }
 
+export type Button = {
+  text: Buttons
+  to: string
+  icon: React.ReactNode
+}
+
 // API
 
 type Post = {

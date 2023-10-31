@@ -66,9 +66,15 @@ export default function Feed({ type }: { type: Tab }): React.ReactNode {
           })}
         </div>
       ) : postsLoadState === PostsLoadState.Loading ? (
-        <ArrowPathIcon className='mx-auto my-32 h-10 w-10 animate-spin lg:h-5 lg:w-5' aria-hidden='true' />
+        <>
+          <span className='sr-only'>Loading posts</span>
+          <ArrowPathIcon className='mx-auto my-32 h-10 w-10 animate-spin lg:h-5 lg:w-5' aria-hidden='true' />
+        </>
       ) : (
-        <ExclamationTriangleIcon className='mx-auto my-32 h-10 w-10 animate-pulse lg:h-5 lg:w-5' aria-hidden='true' />
+        <>
+          <span className='sr-only'>Error loading posts</span>
+          <ExclamationTriangleIcon className='mx-auto my-32 h-10 w-10 animate-pulse lg:h-5 lg:w-5' aria-hidden='true' />
+        </>
       )}
     </>
   )

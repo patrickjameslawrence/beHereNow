@@ -17,9 +17,14 @@ export enum UserTabs {
   LogOut = 'Log out',
 }
 export enum Options {
-  AddToFavorites = 'Add to Favorites',
+  Bookmark = 'Bookmark',
   Report = 'Report',
   Share = 'Share',
+}
+export enum Actions {
+  Like = 'Like',
+  Repost = 'Repost',
+  Comment = 'Comment',
 }
 
 // API

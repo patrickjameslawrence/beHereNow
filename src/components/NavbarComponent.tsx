@@ -18,6 +18,8 @@ import type { Tab, UserTab } from '../types'
 import { Tabs, UserTabs } from '../lib/globals'
 
 import WideLogo from './assets/NavbarWideLogo'
+import DesktopDefaultAvatar from './assets/NavbarDesktopDefaultAvatar'
+import MobileDefaultAvatar from './assets/NavbarMobileDefaultAvatar'
 
 import joinClassNames from '../lib/joinClassNames'
 
@@ -96,7 +98,7 @@ export default function Navbar({
               <div className='hidden md:ml-6 md:flex md:items-center'>
                 <button
                   type='button'
-                  className='relative rounded-full bg-neutral-900 p-1 text-neutral-400 outline outline-1 outline-neutral-900 transition-colors hover:bg-neutral-800 hover:text-neutral-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2'
+                  className='relative rounded-full bg-neutral-900 p-1 text-neutral-400 outline outline-1 outline-neutral-900 transition-colors hover:bg-neutral-800 hover:text-neutral-300 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:ring-offset-2'
                 >
                   <span className='absolute -inset-1.5' />
                   <span className='sr-only'>View notifications</span>
@@ -106,14 +108,10 @@ export default function Navbar({
                 {/* Profile dropdown */}
                 <Menu as='div' className='relative ml-3'>
                   <div>
-                    <Menu.Button className='relative flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2'>
+                    <Menu.Button className='relative flex rounded-full text-sm focus:outline-none focus:ring-1 focus:ring-purple-500'>
                       <span className='absolute -inset-1.5' />
                       <span className='sr-only'>Open user menu</span>
-                      <img
-                        className='h-8 w-8 rounded-full'
-                        src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-                        alt=''
-                      />
+                      <DesktopDefaultAvatar />
                     </Menu.Button>
                   </div>
                   <Transition
@@ -151,7 +149,7 @@ export default function Navbar({
               </div>
               <div className='-mr-2 flex items-center md:hidden'>
                 {/* Mobile menu button */}
-                <Disclosure.Button className='relative inline-flex items-center justify-center rounded-full p-2 text-neutral-400 outline outline-1 outline-neutral-900 hover:bg-neutral-900 hover:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500'>
+                <Disclosure.Button className='relative inline-flex items-center justify-center rounded-full p-2 text-neutral-400 outline outline-1 outline-neutral-900 hover:bg-neutral-900 hover:text-neutral-500 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-purple-500'>
                   <span className='absolute -inset-0.5' />
                   <span className='sr-only'>Open main menu</span>
                   {open ? (
@@ -189,11 +187,7 @@ export default function Navbar({
               <div className='flex items-center px-4 pb-4 pt-3 transition-colors hover:bg-neutral-900'>
                 <Link to='/profile'>
                   <div className='flex-shrink-0'>
-                    <img
-                      className='h-10 w-10 rounded-full'
-                      src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-                      alt=''
-                    />
+                    <MobileDefaultAvatar />
                   </div>
                 </Link>
                 <div className='ml-3'>
@@ -206,7 +200,7 @@ export default function Navbar({
                 </div>
                 <button
                   type='button'
-                  className='relative ml-auto flex-shrink-0 rounded-full bg-neutral-900 p-1 text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-neutral-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2'
+                  className='relative ml-auto flex-shrink-0 rounded-full bg-neutral-900 p-1 text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-neutral-300 focus:outline-none focus:ring-1 focus:ring-purple-500'
                 >
                   <span className='absolute -inset-1.5' />
                   <span className='sr-only'>View notifications</span>

@@ -192,10 +192,11 @@ export default function Navbar({
                 </Link>
                 <div className='ml-3'>
                   <Link to='/profile'>
-                    <div className='text-base font-medium text-white'>Tom Cook</div>
+                    <div className='text-base font-medium text-white'>John Doe</div>
                   </Link>
                   <Link to='/profile'>
-                    <div className='text-sm font-medium text-neutral-500'>tom@example.com</div>
+                    <div className='text-sm font-medium text-neutral-500'>johndoe@example.com</div>
+                    <div className='text-sm font-medium text-neutral-500'>@johndoe</div>
                   </Link>
                 </div>
                 <button

@@ -16,7 +16,7 @@ import {
   EllipsisVerticalIcon,
 } from '@heroicons/react/24/outline'
 import type { Option, Action } from '../types'
-import { Options, Actions } from '../lib/globals'
+import { Options, Actions, GOOGLE_MAPS_API_KEY } from '../lib/globals'
 
 import joinClassNames from '../lib/joinClassNames'
 
@@ -129,34 +129,38 @@ export function Content({ _id, text, location }: { _id: ObjectId; text: string; 
     version: 'weekly',
   })
 
-  if (location.isUsing) {
-    loader.importLibrary('maps').then(async () => {
-      const { Map } = (await google.maps.importLibrary('maps')) as google.maps.MapsLibrary
-      new Map(document.getElementById(_id.toString()) as HTMLElement, {
-        center: { lat: location.latitude, lng: location.longitude },
-        zoom: 15,
-        mapId: '96eff334ed27a8d7',
-        gestureHandling: 'none',
-        mapTypeControl: false,
-        fullscreenControl: true,
-        streetViewControl: false,
-        clickableIcons: false,
-        zoomControl: false,
-        keyboardShortcuts: false,
+  console.log(process.env.NODE_ENV)
+  if (location.isUsing && process.env.NODE_ENV === 'production') {
+    loader
+      .importLibrary('maps')
+      .then(async () => {
+        const { Map } = (await google.maps.importLibrary('maps')) as google.maps.MapsLibrary
+        new Map(document.getElementById(_id.toString()) as HTMLElement, {
+          center: { lat: location.latitude, lng: location.longitude },
+          zoom: 15,
+          mapId: GOOGLE_MAPS_API_KEY,
+          gestureHandling: 'none',
+          mapTypeControl: false,
+          fullscreenControl: true,
+          streetViewControl: false,
+          clickableIcons: false,
+          zoomControl: false,
+          keyboardShortcuts: false,
+        })
       })
-    })
+      .catch((e: Error) => console.log(e))
   }
 
   return (
     <>
-      <div className='my-3 flex h-48 justify-between gap-3'>
+      <div className='my-3 flex flex-col justify-between gap-3 md:h-48 md:flex-row'>
         <p className='min-h-full flex-1 overflow-y-auto overscroll-y-auto break-normal bg-gradient-to-b text-sm'>
           {text}
         </p>
         {location.isUsing && (
           <div
             id={_id.toString()}
-            className='block h-full w-64 rounded-xl bg-neutral-900 outline outline-1 outline-neutral-800'
+            className='lg:w-964 block h-48 w-full rounded-xl bg-neutral-900 outline outline-1 outline-neutral-800 md:h-full md:w-96 lg:w-64'
           ></div>
         )}
       </div>

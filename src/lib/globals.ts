@@ -5,6 +5,8 @@ export const BASE_API_URL =
     ? 'https://beherenow-06dedcad18d1.herokuapp.com/api/v' + apiVersion
     : 'http://localhost:' + port + '/api/v' + apiVersion
 
+export const GOOGLE_MAPS_API_KEY = '96eff334ed27a8d7'
+
 export enum Tabs {
   Explore = 'Explore',
   Following = 'Following',

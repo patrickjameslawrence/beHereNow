@@ -16,7 +16,11 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
+        name: 'BeHereNow',
+        short_name: 'BeHereNow',
+        start_url: '/',
         icon: 'src/images/favicon.png',
+        display: 'standalone',
       },
     },
     'gatsby-plugin-sharp',

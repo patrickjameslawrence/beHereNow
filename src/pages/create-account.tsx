@@ -1,12 +1,12 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { Link, HeadFC, PageProps } from 'gatsby'
 import WideLogo from '../components/assets/LogInWideLogo'
 import { BASE_API_URL } from '../lib/globals'
 import { goTrue } from '../lib/globals'
 
 import { StatesAndProvinces, Countries } from '../lib/globals'
 
-export default function CreateAccount() {
+const CreateAccountPage: React.FC<PageProps> = () => {
   const nameRef = React.useRef()
   const usernameRef = React.useRef()
   const emailRef = React.useRef()
@@ -14,13 +14,6 @@ export default function CreateAccount() {
   const cityRef = React.useRef()
   const stateOrProvinceRef = React.useRef()
   const countryRef = React.useRef()
-
-  goTrue
-    .acceptInvite('fuTVZTTO3PgawchvT5vJSw', 'test', false)
-    .then((res) => {
-      console.log(res)
-    })
-    .catch((e) => console.error(e))
 
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -36,7 +29,7 @@ export default function CreateAccount() {
     // }
 
     goTrue
-      .signup(emailRef.current.value, passwordRef.current.value)
+      .signup(emailRef.current.value, passwordRef.current.value, false)
       .then((res) => {
         console.log(res)
       })
@@ -48,7 +41,7 @@ export default function CreateAccount() {
       <div className='mx-auto flex min-h-full w-fit flex-1 flex-col justify-center bg-black px-6 py-12 lg:px-8'>
         <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
           <Link to='/'>
-            <WideLogo />
+            <WideLogo key='Wide logo' />
           </Link>
           <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white'>
             Create a new account
@@ -227,3 +220,7 @@ export default function CreateAccount() {
     </>
   )
 }
+
+export default CreateAccountPage
+
+export const Head: HeadFC = () => <title>BeHereNow | Create account</title>

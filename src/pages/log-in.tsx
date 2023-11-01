@@ -1,10 +1,10 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { Link, HeadFC, PageProps } from 'gatsby'
 import WideLogo from '../components/assets/LogInWideLogo'
 import { BASE_API_URL } from '../lib/globals'
 import { goTrue } from '../lib/globals'
 
-export default function LogIn() {
+const LogInPage: React.FC<PageProps> = () => {
   const emailRef = React.useRef()
   const passwordRef = React.useRef()
 
@@ -36,7 +36,7 @@ export default function LogIn() {
       <div className='mx-auto flex min-h-full w-fit flex-1 flex-col justify-center bg-black px-6 py-12 lg:px-8'>
         <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
           <Link to='/'>
-            <WideLogo />
+            <WideLogo key='Wide logo' />
           </Link>
           <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white'>
             Log in to your account
@@ -119,3 +119,7 @@ export default function LogIn() {
     </>
   )
 }
+
+export default LogInPage
+
+export const Head: HeadFC = () => <title>BeHereNow | Log in</title>

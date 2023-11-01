@@ -41,6 +41,13 @@ export enum Buttons {
   CreateAccount = 'Create account',
 }
 
+export enum LoadStates {
+  NotLoading = 'Not loading',
+  Loading = 'Loading',
+  Loaded = 'Loaded',
+  Error = 'Error',
+}
+
 // API
 export enum Countries {
   UnitedStates = 'United States',

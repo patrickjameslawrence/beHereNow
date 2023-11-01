@@ -1,3 +1,5 @@
+import GoTrue from 'gotrue-js'
+
 const port = 8050
 const apiVersion = '1.0.0'
 export const BASE_API_URL =
@@ -6,6 +8,12 @@ export const BASE_API_URL =
     : 'http://localhost:' + port + '/api/v' + apiVersion
 
 export const GOOGLE_MAPS_API_KEY = '96eff334ed27a8d7'
+
+export const goTrue = new GoTrue({
+  APIUrl: 'https://beherenow.netlify.app/.netlify/identity',
+  audience: '',
+  setCookie: true,
+})
 
 export enum Tabs {
   Explore = 'Explore',
@@ -34,13 +42,13 @@ export enum Buttons {
 }
 
 // API
-const enum Countries {
+export enum Countries {
   UnitedStates = 'United States',
   Mexico = 'Mexico',
   Canada = 'Canada',
 }
 
-const enum StatesAndProvinces {
+export enum StatesAndProvinces {
   // United States
   Alabama = 'Alabama',
   Alaska = 'Alaska',
@@ -93,21 +101,6 @@ const enum StatesAndProvinces {
   Wisconsin = 'Wisconsin',
   Wyoming = 'Wyoming',
 
-  // Canada
-  Alberta = 'Alberta',
-  BritishColumbia = 'British Columbia',
-  Manitoba = 'Manitoba',
-  NewBrunswick = 'New Brunswick',
-  NewfoundlandAndLabrador = 'Newfoundland and Labrador',
-  NorthwestTerritories = 'Northwest Territories',
-  NovaScotia = 'Nova Scotia',
-  Nunavut = 'Nunavut',
-  Ontario = 'Ontario',
-  PrinceEdwardIsland = 'Prince Edward Island',
-  Quebec = 'Quebec',
-  Saskatchewan = 'Saskatchewan',
-  Yukon = 'Yukon',
-
   // Mexico
   Aguascalientes = 'Aguascalientes',
   BajaCalifornia = 'Baja California',
@@ -141,4 +134,19 @@ const enum StatesAndProvinces {
   Veracruz = 'Veracruz',
   Yucatan = 'Yucatán',
   Zacatecas = 'Zacatecas',
+
+  // Canada
+  Alberta = 'Alberta',
+  BritishColumbia = 'British Columbia',
+  Manitoba = 'Manitoba',
+  NewBrunswick = 'New Brunswick',
+  NewfoundlandAndLabrador = 'Newfoundland and Labrador',
+  NorthwestTerritories = 'Northwest Territories',
+  NovaScotia = 'Nova Scotia',
+  Nunavut = 'Nunavut',
+  Ontario = 'Ontario',
+  PrinceEdwardIsland = 'Prince Edward Island',
+  Quebec = 'Quebec',
+  Saskatchewan = 'Saskatchewan',
+  Yukon = 'Yukon',
 }

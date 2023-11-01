@@ -68,7 +68,7 @@ export default function Feed({ type }: { type: Tab }): React.ReactNode {
         <>
           <span className='sr-only'>Error loading posts</span>
           <ExclamationTriangleIcon
-            className='mx-auto my-32 h-10 w-10 animate-pulse bg-red-600 lg:h-5 lg:w-5'
+            className='mx-auto my-32 h-10 w-10 animate-pulse text-red-600 lg:h-5 lg:w-5'
             aria-hidden='true'
           />
         </>

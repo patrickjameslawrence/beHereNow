@@ -25,7 +25,7 @@ import MobileDefaultAvatar from './assets/NavbarMobileDefaultAvatar'
 
 import joinClassNames from '../lib/joinClassNames'
 
-const isLoggedIn = true
+const isLoggedIn = false
 
 export default function Navbar({
   currentTab,
@@ -76,11 +76,11 @@ export default function Navbar({
       to: '/log-in',
       icon: <ArrowLeftOnRectangleIcon className='h-6 w-6' aria-hidden='true' />,
     },
-    {
-      text: Buttons.CreateAccount,
-      to: '/create-account',
-      icon: <UserPlusIcon className='h-6 w-6' aria-hidden='true' />,
-    },
+    // {
+    //   text: Buttons.CreateAccount,
+    //   to: '/create-account',
+    //   icon: <UserPlusIcon className='h-6 w-6' aria-hidden='true' />,
+    // },
   ]
 
   return (
@@ -168,7 +168,7 @@ export default function Navbar({
                   buttons.map((button: Button): React.ReactNode => {
                     return (
                       <Link
-                        className='inline-flex gap-3 bg-neutral-900 px-3 py-3 text-sm text-neutral-400 outline outline-1 outline-neutral-800 hover:bg-neutral-800 hover:text-neutral-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500'
+                        className='inline-flex items-center gap-3 bg-neutral-900 px-3 py-3 text-sm text-neutral-400 outline outline-1 outline-neutral-800 hover:bg-neutral-800 hover:text-neutral-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500'
                         to={button.to}
                       >
                         {button.icon}

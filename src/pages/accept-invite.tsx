@@ -76,7 +76,7 @@ const AcceptInvitePage: React.FC<PageProps> = (props) => {
                 <WideLogo key='Wide logo' />
               </Link>
               <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white'>
-                Create a new account
+                Accept your invite
               </h2>
             </div>
 

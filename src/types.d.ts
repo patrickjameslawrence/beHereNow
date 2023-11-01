@@ -49,6 +49,7 @@ type Location = {
 type User = {
   _id: ObjectId
   accountCreated: Date
+  accountUpdated: Date
   isPrivate: boolean
   name: string
   credentials: Credentials

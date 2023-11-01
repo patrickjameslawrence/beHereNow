@@ -31,8 +31,8 @@ const AcceptInvitePage: React.FC<PageProps> = (props) => {
   //   .catch((e) => console.error(e))
 
   var email: string, inviteToken: string
+  const hash = decodeURIComponent(props.location.hash)
 
-  const hash = props.location.hash
   if (hash != '') {
     const emailIndex = hash.indexOf('#email=') + 7
     if (emailIndex !== -1) {

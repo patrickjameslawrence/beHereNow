@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import WideLogo from '../components/assets/LogInWideLogo'
 import { BASE_API_URL } from '../lib/globals'
+import { goTrue } from '../lib/globals'
 
 export default function LogIn() {
   const emailRef = React.useRef()
@@ -9,20 +10,30 @@ export default function LogIn() {
 
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    if (emailRef.current != 'undefined' && passwordRef.current != 'undefined') {
-      const response = await fetch(BASE_API_URL + '/users/log-in', {
-        method: 'POST',
-        body: JSON.stringify({
-          email: emailRef.current.value,
-          password: passwordRef.current.value,
-        }),
-      })
-      console.log(response)
-    }
+    // if (emailRef.current != 'undefined' && passwordRef.current != 'undefined') {
+    //   const response = await fetch(BASE_API_URL + '/users/log-in', {
+    //     method: 'POST',
+    //     body: JSON.stringify({
+    //       email: emailRef.current.value,
+    //       password: passwordRef.current.value,
+    //     }),
+    //   })
+    //   console.log(response)
+    // }
+
+    //   goTrue
+    //     .login(emailRef.current.value, passwordRef.current.value)
+    //     .then((res) => {
+    //       console.log(res)
+    //     })
+    //     .catch((e) => console.error(e))
+
+    //   goTrue.confirm('biRRZFuGR4rk7jY0vrHcSg', true)
   }
   return (
     <>
-      <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
+      <div className="fixed -right-1/2 -top-1/2 -z-10 h-[200%] w-[200%] -rotate-45 bg-[url('../images/logos/rectangular.svg')] bg-repeat opacity-5"></div>
+      <div className='mx-auto flex min-h-full w-fit flex-1 flex-col justify-center bg-black px-6 py-12 lg:px-8'>
         <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
           <Link to='/'>
             <WideLogo />
@@ -57,9 +68,9 @@ export default function LogIn() {
                   Password
                 </label>
                 <div className='text-sm'>
-                  <a href='#' className='font-semibold text-purple-600 hover:text-purple-500'>
+                  <Link to='/' className='font-semibold text-purple-600 hover:text-purple-500'>
                     Forgot password?
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className='mt-2'>
@@ -76,6 +87,17 @@ export default function LogIn() {
             </div>
 
             <div>
+              <div className='mb-3 flex items-center gap-3'>
+                <input
+                  id='rememberMe'
+                  name='rememberMe'
+                  type='checkbox'
+                  className='h-4 w-4 border-neutral-800 bg-neutral-900 text-purple-600 focus:ring-purple-600'
+                />
+                <label className='block text-sm font-medium leading-6 text-gray-400' htmlFor='rememberMe'>
+                  Remember me
+                </label>
+              </div>
               <button
                 type='submit'
                 onClick={handleClick}

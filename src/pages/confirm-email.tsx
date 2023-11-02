@@ -32,7 +32,7 @@ const ConfirmEmailPage: React.FC<PageProps> = (props) => {
     updateLoadState(LoadStates.Loading)
 
     goTrue
-      .confirm(confirmationToken, false)
+      .confirm(confirmationToken, true)
       .then((res) => {
         updateAlertMessage('Email confirmed. You can now login')
         updateLoadState(LoadStates.Loaded)

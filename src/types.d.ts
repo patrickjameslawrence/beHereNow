@@ -31,7 +31,11 @@ export type Button = {
 
 type Post = {
   _id: ObjectId
-  author: User
+  author: {
+    _id: ObjectId
+    name: string
+    credentials: Credentials
+  }
   content: Content
   location: Location
   timestamp: Date
@@ -49,17 +53,20 @@ type Location = {
 type User = {
   _id: ObjectId
   accountCreated: Date
-  accountUpdated: Date
+  accountUpdated?: Date
   isPrivate: boolean
   name: string
   credentials: Credentials
   city?: string
   stateOrProvince?: StatesAndProvinces
   country?: Countries
+  blocked?: {
+    users: ObjectId[]
+    posts: ObjectId[]
+  }
 }
-
 type Credentials = {
+  netlifyId: string
   username: string
   email: string
-  password: string
 }

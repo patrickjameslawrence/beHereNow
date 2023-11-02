@@ -13,13 +13,17 @@ const ConfirmEmailPage: React.FC<PageProps> = (props) => {
   const [alertMessage, setAlertMessage] = React.useState<string>('')
   const updateAlertMessage = (value: string) => setAlertMessage(value)
 
-  var confirmationToken: string
+  var email, confirmationToken: string
   const hash = decodeURIComponent(props.location.hash)
 
   if (hash != '') {
-    const confirmationTokenIndex = hash.indexOf('#confirmation_token=') + 21
-    if (confirmationTokenIndex !== -1) {
-      confirmationToken = hash.substring(confirmationTokenIndex) // only get the key's value
+    const emailIndex = hash.indexOf('#email=') + 7
+    if (emailIndex !== -1) {
+      const confirmationTokenIndex = hash.indexOf('#confirmation_token=') + 20
+      if (confirmationTokenIndex !== -1) {
+        email = hash.substring(emailIndex, hash.indexOf('#', emailIndex)) // only get the key's value
+        confirmationToken = hash.substring(confirmationTokenIndex)
+      }
     }
   }
 
@@ -55,6 +59,7 @@ const ConfirmEmailPage: React.FC<PageProps> = (props) => {
 
         <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
           <form onSubmit={handleSubmit} className='space-y-6' method='POST'>
+            <h3 className='text-center text-white'>{email}</h3>
             {alertMessage !== '' ? (
               <div className='border-neutral-900 bg-neutral-950 p-4 outline outline-1 outline-neutral-900'>
                 <div className='flex'>
@@ -87,11 +92,12 @@ const ConfirmEmailPage: React.FC<PageProps> = (props) => {
                   type='submit'
                   className='my-11 flex w-full justify-center bg-purple-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white caret-white transition-colors hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600'
                 >
-                  Log in
+                  Confirm
                 </button>
               ) : loadState === LoadStates.Loading ? (
                 <button
                   type='submit'
+                  disabled
                   className='my-11 flex w-full justify-center bg-purple-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white caret-white transition-colors hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600'
                 >
                   <ArrowPathIcon className='h-6 w-6 animate-spin transition-colors' />
@@ -99,6 +105,7 @@ const ConfirmEmailPage: React.FC<PageProps> = (props) => {
               ) : loadState == LoadStates.Loaded ? (
                 <button
                   type='submit'
+                  disabled
                   className='my-11 flex w-full justify-center bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white caret-white transition-colors'
                 >
                   <CheckIcon className='h-6 w-6 transition-colors' />
@@ -106,6 +113,7 @@ const ConfirmEmailPage: React.FC<PageProps> = (props) => {
               ) : (
                 <button
                   type='submit'
+                  disabled
                   className='my-11 flex w-full justify-center bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white caret-white transition-colors'
                 >
                   <ExclamationTriangleIcon className='h-6 w-6 animate-pulse text-black transition-colors' />
@@ -113,13 +121,6 @@ const ConfirmEmailPage: React.FC<PageProps> = (props) => {
               )}
             </div>
           </form>
-
-          <p className='mt-10 text-center text-sm text-gray-400'>
-            Don't have an account?{' '}
-            <Link to='/create-account' className='font-semibold leading-6 text-purple-600 hover:text-purple-500'>
-              Create one
-            </Link>
-          </p>
         </div>
       </div>
     </>

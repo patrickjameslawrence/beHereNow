@@ -105,6 +105,7 @@ const ForgotPasswordPage: React.FC<PageProps> = (props) => {
               ) : loadState === LoadStates.Loading ? (
                 <button
                   type='submit'
+                  disabled
                   className='my-11 flex w-full justify-center bg-purple-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white caret-white transition-colors hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600'
                 >
                   <ArrowPathIcon className='h-6 w-6 animate-spin transition-colors' />
@@ -112,6 +113,7 @@ const ForgotPasswordPage: React.FC<PageProps> = (props) => {
               ) : loadState == LoadStates.Loaded ? (
                 <button
                   type='submit'
+                  disabled
                   className='my-11 flex w-full justify-center bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white caret-white transition-colors'
                 >
                   <CheckIcon className='h-6 w-6 transition-colors' />
@@ -119,6 +121,7 @@ const ForgotPasswordPage: React.FC<PageProps> = (props) => {
               ) : (
                 <button
                   type='submit'
+                  disabled
                   className='my-11 flex w-full justify-center bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white caret-white transition-colors'
                 >
                   <ExclamationTriangleIcon className='h-6 w-6 animate-pulse text-black transition-colors' />

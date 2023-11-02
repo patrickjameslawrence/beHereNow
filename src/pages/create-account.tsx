@@ -44,7 +44,7 @@ const CreateAccountPage: React.FC<PageProps> = () => {
       })
       .catch((e) => {
         console.error(e)
-        updateAlertMessage("Couldn't accept the invite. Try logging in instead")
+        updateAlertMessage("Couldn't create account. Try logging in instead")
         updateLoadState(LoadStates.Error)
       })
   }

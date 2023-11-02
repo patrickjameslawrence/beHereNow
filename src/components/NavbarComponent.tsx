@@ -76,11 +76,11 @@ export default function Navbar({
       to: '/log-in',
       icon: <ArrowLeftOnRectangleIcon className='h-6 w-6' aria-hidden='true' />,
     },
-    // {
-    //   text: Buttons.CreateAccount,
-    //   to: '/create-account',
-    //   icon: <UserPlusIcon className='h-6 w-6' aria-hidden='true' />,
-    // },
+    {
+      text: Buttons.CreateAccount,
+      to: '/create-account',
+      icon: <UserPlusIcon className='h-6 w-6' aria-hidden='true' />,
+    },
   ]
 
   const handleClick = () => {

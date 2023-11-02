@@ -18,9 +18,22 @@ const config: GatsbyConfig = {
       options: {
         name: 'BeHereNow',
         short_name: 'BeHereNow',
+        description: 'A geolocation based social media app',
+        lang: 'en',
         start_url: '/',
-        icon: 'src/images/favicon.png',
+        scope: '/',
         display: 'standalone',
+        background_color: '#3b0764',
+        icon: 'src/images/favicon.svg',
+        shortcuts: [
+          {
+            name: 'Create a new post on your feed',
+            short_name: 'Create new post',
+            description: 'Share a new post with BeHereNow',
+            url: '/create-post',
+            icons: [{ src: '/favicon.svg', sizes: '32x32' }],
+          },
+        ],
       },
     },
     'gatsby-plugin-sharp',

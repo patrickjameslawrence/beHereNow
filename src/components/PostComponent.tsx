@@ -129,7 +129,6 @@ export function Content({ _id, text, location }: { _id: ObjectId; text: string; 
     version: 'weekly',
   })
 
-  console.log(process.env.NODE_ENV)
   if (location.isUsing && process.env.NODE_ENV === 'production') {
     loader
       .importLibrary('maps')
@@ -148,7 +147,7 @@ export function Content({ _id, text, location }: { _id: ObjectId; text: string; 
           keyboardShortcuts: false,
         })
       })
-      .catch((e: Error) => console.log(e))
+      .catch((e: Error) => console.error(e))
   }
 
   return (

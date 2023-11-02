@@ -6,7 +6,7 @@ import { goTrue } from '../lib/globals'
 import joinClassNames from '../lib/joinClassNames'
 import { ArrowPathIcon, CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 
-const LogInPage: React.FC<PageProps> = () => {
+const ResetPasswordPage: React.FC<PageProps> = (props) => {
   const [loadState, setLoadState] = React.useState<LoadStates>(LoadStates.NotLoading)
   const updateLoadState = (value: LoadStates) => setLoadState(value)
 
@@ -15,26 +15,40 @@ const LogInPage: React.FC<PageProps> = () => {
 
   const emailRef = React.useRef()
   const passwordRef = React.useRef()
-  const rememberMeRef = React.useRef()
+  const confirmPasswordRef = React.useRef()
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  var email: string,
+    recoveryToken: string = ''
+  const hash = decodeURIComponent(props.location.hash)
+
+  if (hash != '') {
+    const emailIndex = hash.indexOf('#email=') + 7
+    if (emailIndex !== -1) {
+      const recoveryTokenIndex = hash.indexOf('#recovery_token=') + 14
+      if (recoveryTokenIndex !== -1) {
+        email = hash.substring(emailIndex, hash.indexOf('#', emailIndex)) // only get the key's value
+        recoveryToken = hash.substring(recoveryTokenIndex)
+      }
+    }
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    updateLoadState(LoadStates.Loading)
 
     goTrue
-      .login(emailRef.current.value, passwordRef.current.value, rememberMeRef.current.checked)
+      .recover(recoveryToken, false)
       .then((res) => {
-        console.log(res)
+        updateAlertMessage('Password reset')
         updateLoadState(LoadStates.Loaded)
       })
       .catch((e) => {
-        if (e.json.error === 'invalid_grant') {
-          updateAlertMessage('Invalid email or password')
-        } else {
-          updateAlertMessage("Couldn't log in. Did you confirm your email?")
-        }
+        console.error(e)
+        updateAlertMessage("Couldn't reset password")
         updateLoadState(LoadStates.Error)
       })
   }
+
   return (
     <>
       <div className="fixed -right-1/2 -top-1/2 -z-10 h-[200%] w-[200%] -rotate-45 bg-[url('../images/logos/rectangular.svg')] bg-repeat opacity-5"></div>
@@ -44,73 +58,93 @@ const LogInPage: React.FC<PageProps> = () => {
             <WideLogo key='Wide logo' />
           </Link>
           <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white'>
-            Log in to your account
+            Reset your password
           </h2>
         </div>
 
         <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-          <form onSubmit={handleSubmit} className='space-y-6' action='#' method='POST'>
+          <form onSubmit={handleSubmit} className='space-y-6' method='POST'>
             <div>
-              <label htmlFor='email' className='block text-sm font-medium leading-6 text-gray-400'>
-                Email address
+              <label htmlFor='email' className='block text-sm font-medium leading-6 text-neutral-400'>
+                Email address *
               </label>
               <div className='mt-2'>
-                <input
-                  id='email'
-                  name='email'
-                  ref={emailRef}
-                  onInput={() => {
-                    updateAlertMessage('')
-                    updateLoadState(LoadStates.NotLoading)
-                  }}
-                  type='email'
-                  autoComplete='email'
-                  required
-                  className='block w-full border-0 bg-neutral-950 py-1.5 text-white caret-white outline outline-1 outline-neutral-900 transition-colors placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
-                />
+                {email ? (
+                  <input
+                    id='email'
+                    value={email}
+                    disabled
+                    placeholder='johndoe@example.com'
+                    name='email'
+                    ref={emailRef}
+                    type='email'
+                    autoComplete='email'
+                    required
+                    className='block w-full border-0 bg-neutral-950 py-1.5 text-white caret-white outline outline-1 outline-neutral-900 transition-colors placeholder:text-neutral-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
+                  />
+                ) : (
+                  <input
+                    id='email'
+                    placeholder='johndoe@example.com'
+                    name='email'
+                    ref={emailRef}
+                    type='email'
+                    autoComplete='email'
+                    required
+                    className='block w-full border-0 bg-neutral-950 py-1.5 text-white caret-white outline outline-1 outline-neutral-900 transition-colors placeholder:text-neutral-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
+                  />
+                )}
               </div>
             </div>
 
             <div>
               <div className='flex items-center justify-between'>
-                <label htmlFor='password' className='block text-sm font-medium leading-6 text-gray-400'>
-                  Password
+                <label htmlFor='password' className='block text-sm font-medium leading-6 text-neutral-400'>
+                  Password *
                 </label>
-                <div className='text-sm'>
-                  <Link to='/forgot-password' className='font-semibold text-purple-600 hover:text-purple-500'>
-                    Forgot password?
-                  </Link>
-                </div>
               </div>
               <div className='mt-2'>
                 <input
                   id='password'
+                  placeholder='••••••••••••'
                   name='password'
                   ref={passwordRef}
-                  onInput={() => {
-                    updateAlertMessage('')
-                    updateLoadState(LoadStates.NotLoading)
-                  }}
+                  onInput={() => updateLoadState(LoadStates.NotLoading)}
+                  pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$'
                   type='password'
-                  autoComplete='current-password'
+                  autoComplete='new-password'
                   required
-                  className='block w-full border-0 bg-neutral-950 py-1.5 text-white caret-white outline outline-1 outline-neutral-900 transition-colors placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
+                  className='block w-full border-0 bg-neutral-950 py-1.5 text-white caret-white outline outline-1 outline-neutral-900 transition-colors placeholder:text-neutral-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
                 />
+                <span className='text-xs text-neutral-400'>
+                  8 characters minimum with a lowercase, uppercase, number, and special character
+                </span>
               </div>
             </div>
 
             <div>
-              <div className='mb-3 flex items-center gap-3'>
-                <input
-                  id='rememberMe'
-                  name='rememberMe'
-                  ref={rememberMeRef}
-                  type='checkbox'
-                  className='h-4 w-4 border-neutral-800 bg-neutral-900 text-purple-600 focus:ring-purple-600'
-                />
-                <label className='block text-sm font-medium leading-6 text-gray-400' htmlFor='rememberMe'>
-                  Remember me
+              <div className='flex items-center justify-between'>
+                <label htmlFor='confirmPassword' className='block text-sm font-medium leading-6 text-neutral-400'>
+                  Confirm password *
                 </label>
+              </div>
+              <div className='mt-2'>
+                <input
+                  id='confirmPassword'
+                  placeholder='••••••••••••'
+                  name='confirmPassword'
+                  ref={confirmPasswordRef}
+                  onInput={(e) => {
+                    e.currentTarget.setCustomValidity('')
+                    e.currentTarget.reportValidity()
+                    updateLoadState(LoadStates.NotLoading)
+                  }}
+                  pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$'
+                  type='password'
+                  autoComplete='new-password'
+                  required
+                  className='block w-full border-0 bg-neutral-950 py-1.5 text-white caret-white outline outline-1 outline-neutral-900 transition-colors placeholder:text-neutral-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6'
+                />
               </div>
             </div>
             {alertMessage !== '' ? (
@@ -145,7 +179,7 @@ const LogInPage: React.FC<PageProps> = () => {
                   type='submit'
                   className='my-11 flex w-full justify-center bg-purple-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white caret-white transition-colors hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600'
                 >
-                  Log in
+                  Reset password
                 </button>
               ) : loadState === LoadStates.Loading ? (
                 <button
@@ -171,19 +205,12 @@ const LogInPage: React.FC<PageProps> = () => {
               )}
             </div>
           </form>
-
-          {/* <p className='mt-10 text-center text-sm text-gray-400'>
-            Don't have an account?{' '}
-            <Link to='/create-account' className='font-semibold leading-6 text-purple-600 hover:text-purple-500'>
-              Create one
-            </Link>
-          </p> */}
         </div>
       </div>
     </>
   )
 }
 
-export default LogInPage
+export default ResetPasswordPage
 
-export const Head: HeadFC = () => <title>BeHereNow | Log in</title>
+export const Head: HeadFC = () => <title>BeHereNow | Reset password</title>

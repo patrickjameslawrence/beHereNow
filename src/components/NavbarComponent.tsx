@@ -17,15 +17,13 @@ import {
 } from '@heroicons/react/24/outline'
 
 import type { Tab, UserTab, Button } from '../types'
-import { Tabs, UserTabs, Buttons } from '../lib/globals'
+import { Tabs, UserTabs, Buttons, goTrue } from '../lib/globals'
 
 import WideLogo from './assets/NavbarWideLogo'
 import DesktopDefaultAvatar from './assets/NavbarDesktopDefaultAvatar'
 import MobileDefaultAvatar from './assets/NavbarMobileDefaultAvatar'
 
 import joinClassNames from '../lib/joinClassNames'
-
-const isLoggedIn = false
 
 export default function Navbar({
   currentTab,
@@ -34,6 +32,8 @@ export default function Navbar({
   currentTab: Tabs
   updateCurrentTab: (tab: Tabs) => void
 }): React.ReactNode {
+  const [currentUser, setCurrentUser] = React.useState(goTrue.currentUser())
+  const updateCurrentUser = (value) => setCurrentUser(value)
   const tabs: Tab[] = [
     {
       title: Tabs.Explore,
@@ -83,11 +83,21 @@ export default function Navbar({
     // },
   ]
 
+  const handleClick = () => {
+    currentUser
+      ?.logout()
+      .then((res) => console.log(res))
+      .catch((e) => {
+        console.error(e)
+      })
+    updateCurrentUser(null)
+  }
+
   return (
     <Disclosure as='nav' className='bg-neutral-950 outline outline-1 outline-neutral-900'>
       {({ open }) => (
         <>
-          <div className='mx-auto max-w-7xl px-4 lg:px-8'>
+          <div className='mx-auto px-4 lg:px-8'>
             <div className='flex h-16 justify-between'>
               <div className='flex'>
                 <div className='flex flex-shrink-0 items-center'>
@@ -113,7 +123,7 @@ export default function Navbar({
                 </div>
               </div>
               <div className='hidden lg:ml-6 lg:flex lg:items-center lg:gap-3'>
-                {isLoggedIn ? (
+                {currentUser !== null ? (
                   <>
                     <button
                       type='button'
@@ -147,7 +157,7 @@ export default function Navbar({
                                 {({ active }) => (
                                   <Link
                                     to={userTab.to}
-                                    onClick={() => console.log('User logging out')}
+                                    onClick={handleClick}
                                     className={joinClassNames(
                                       active ? 'bg-neutral-900 text-neutral-300' : '',
                                       'flex gap-3 px-4 py-2 text-sm text-neutral-400',
@@ -168,6 +178,7 @@ export default function Navbar({
                   buttons.map((button: Button): React.ReactNode => {
                     return (
                       <Link
+                        key={button.text}
                         className='inline-flex items-center gap-3 bg-neutral-900 px-3 py-3 text-sm text-neutral-400 outline outline-1 outline-neutral-800 hover:bg-neutral-800 hover:text-neutral-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500'
                         to={button.to}
                       >
@@ -215,7 +226,7 @@ export default function Navbar({
               })}
             </div>
             <div className='border-t border-neutral-900'>
-              {isLoggedIn ? (
+              {currentUser !== null ? (
                 <>
                   <div className='flex items-center px-4 pb-4 pt-3 transition-colors hover:bg-neutral-900'>
                     <Link to='/profile'>
@@ -225,11 +236,11 @@ export default function Navbar({
                     </Link>
                     <div className='ml-3'>
                       <Link to='/profile'>
-                        <div className='text-base font-medium text-white'>John Doe</div>
+                        <div className='text-base font-medium text-white'>User</div>
                       </Link>
                       <Link to='/profile'>
-                        <div className='text-sm font-medium text-neutral-500'>johndoe@example.com</div>
-                        <div className='text-sm font-medium text-neutral-500'>@johndoe</div>
+                        <div className='text-sm font-medium text-neutral-500'>{currentUser.email}</div>
+                        <div className='text-sm font-medium text-neutral-500'>@{currentUser.id}</div>
                       </Link>
                     </div>
                     <button
@@ -247,7 +258,7 @@ export default function Navbar({
                         <Disclosure.Button
                           key={userTab.title}
                           as={Link}
-                          onClick={() => console.log('User logging out')}
+                          onClick={handleClick}
                           to={userTab.to}
                           className='flex gap-3 border-l-4 border-neutral-900 px-4 py-2 text-base font-medium text-neutral-500 transition-colors hover:border-purple-500 hover:bg-neutral-900 hover:text-purple-700'
                         >
@@ -261,17 +272,15 @@ export default function Navbar({
               ) : (
                 buttons.map((button: Button): React.ReactNode => {
                   return (
-                    <>
-                      <div>
-                        <Link
-                          className='flex items-center gap-3 border-l-4 border-neutral-900 px-4 py-2 text-base font-medium text-neutral-500 transition-colors hover:border-purple-500 hover:bg-neutral-900 hover:text-purple-700'
-                          to={button.to}
-                        >
-                          {button.icon}
-                          {button.text}
-                        </Link>
-                      </div>
-                    </>
+                    <div key={button.text}>
+                      <Link
+                        className='flex items-center gap-3 border-l-4 border-neutral-900 px-4 py-2 text-base font-medium text-neutral-500 transition-colors hover:border-purple-500 hover:bg-neutral-900 hover:text-purple-700'
+                        to={button.to}
+                      >
+                        {button.icon}
+                        {button.text}
+                      </Link>
+                    </div>
                   )
                 })
               )}

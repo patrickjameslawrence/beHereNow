@@ -30,7 +30,8 @@ const AcceptInvitePage: React.FC<PageProps> = (props) => {
   //   })
   //   .catch((e) => console.error(e))
 
-  var email: string, inviteToken: string
+  var email: string,
+    inviteToken: string = ''
   const hash = decodeURIComponent(props.location.hash)
 
   if (hash != '') {
@@ -44,7 +45,7 @@ const AcceptInvitePage: React.FC<PageProps> = (props) => {
     }
   }
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
@@ -67,7 +68,7 @@ const AcceptInvitePage: React.FC<PageProps> = (props) => {
 
   return (
     <>
-      {email != undefined && inviteToken != undefined ? (
+      {email !== undefined && inviteToken !== undefined ? (
         <>
           <div className="fixed -right-1/2 -top-1/2 -z-10 h-[200%] w-[200%] -rotate-45 bg-[url('../images/logos/rectangular.svg')] bg-repeat opacity-5"></div>
           <div className='mx-auto flex min-h-full w-fit flex-1 flex-col justify-center bg-black px-6 py-12 lg:px-8'>

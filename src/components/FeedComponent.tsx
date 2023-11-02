@@ -1,7 +1,7 @@
 import React from 'react'
 import { ArrowPathIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import type { Tab, Post as PostType } from '../types'
-import { BASE_API_URL, LoadStates } from '../lib/globals'
+import { BASE_API_URL, LoadStates, goTrue } from '../lib/globals'
 import Post from './PostComponent'
 import DefaultAvatar from './assets/PostDefaultAvatar'
 
@@ -18,6 +18,7 @@ export default function Feed({ type }: { type: Tab }): React.ReactNode {
   //       return posts;
   //   }
   // }, []);
+
   const [posts, setPosts] = React.useState<PostType[]>([])
 
   const [loadState, setLoadState] = React.useState<LoadStates>(LoadStates.Loading)
@@ -42,23 +43,25 @@ export default function Feed({ type }: { type: Tab }): React.ReactNode {
   return (
     <>
       {loadState === LoadStates.Loaded ? (
-        <div className='grid grid-flow-row grid-cols-1 gap-3 lg:grid-cols-2'>
-          {posts.map((post: PostType): React.ReactNode => {
-            return (
-              <Post id={post._id} key={post._id}>
-                <div className='mb-1 flex space-x-3'>
-                  <DefaultAvatar />
-                  <div className='min-w-0 flex-1'>
-                    <Post.Author name={post.author.name} username={post.author.credentials.username} />
-                    <Post.Timestamp value={post.timestamp} />
+        <>
+          <div className='grid grid-flow-row grid-cols-1 gap-3 lg:grid-cols-2'>
+            {posts.map((post: PostType): React.ReactNode => {
+              return (
+                <Post id={post._id} key={post._id}>
+                  <div className='mb-1 flex space-x-3'>
+                    <DefaultAvatar />
+                    <div className='min-w-0 flex-1'>
+                      <Post.Author name={post.author.name} username={post.author.credentials.username} />
+                      <Post.Timestamp value={post.timestamp} />
+                    </div>
+                    <Post.Menu />
                   </div>
-                  <Post.Menu />
-                </div>
-                <Post.Content _id={post._id} text={post.content.text} location={post.content.location} />
-              </Post>
-            )
-          })}
-        </div>
+                  <Post.Content _id={post._id} text={post.content.text} location={post.content.location} />
+                </Post>
+              )
+            })}
+          </div>
+        </>
       ) : loadState === LoadStates.Loading ? (
         <>
           <span className='sr-only'>Loading posts</span>

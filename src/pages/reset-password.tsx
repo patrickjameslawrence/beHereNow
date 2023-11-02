@@ -37,7 +37,7 @@ const ResetPasswordPage: React.FC<PageProps> = (props) => {
     updateLoadState(LoadStates.Loading)
 
     goTrue
-      .recover(recoveryToken, false)
+      .recover(recoveryToken, true)
       .then((res) => {
         updateAlertMessage('Password reset')
         updateLoadState(LoadStates.Loaded)

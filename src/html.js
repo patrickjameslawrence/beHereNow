@@ -8,6 +8,7 @@ export default function HTML(props) {
         <meta name='apple-mobile-web-app-capable' content='yes' />
         <meta name='mobile-web-app-capable' content='yes' />
         <meta charSet='utf-8' />
+        <meta name='theme-color' content='#3b0764' />
         <meta httpEquiv='x-ua-compatible' content='ie=edge' />
         <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
         {props.headComponents}

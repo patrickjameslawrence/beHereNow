@@ -55,7 +55,7 @@ const AcceptInvitePage: React.FC<PageProps> = (props) => {
     updateLoadState(LoadStates.Loading)
 
     goTrue
-      .acceptInvite(inviteToken, passwordRef.current.value, false)
+      .acceptInvite(inviteToken, passwordRef.current.value, true)
       .then((res) => {
         updateLoadState(LoadStates.Loaded)
       })

@@ -23,6 +23,7 @@ const config: GatsbyConfig = {
         start_url: '/',
         scope: '/',
         display: 'standalone',
+        theme_color: '#3b0764',
         background_color: '#3b0764',
         icon: 'src/images/favicon.svg',
         shortcuts: [

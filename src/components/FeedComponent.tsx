@@ -5,10 +5,6 @@ import { BASE_API_URL, LoadStates, goTrue } from '../lib/globals'
 import Post from './PostComponent'
 import DefaultAvatar from './assets/PostDefaultAvatar'
 
-// const enum Actions {
-//   Add = "add"
-// }
-
 export default function Feed({ type }: { type: Tab }): React.ReactNode {
   // const [ posts, dispatch ] = React.useReducer((state, action) => {
   //   switch (action.type) {

@@ -29,10 +29,10 @@ export type Button = {
 
 // API
 
-type Post = {
-  _id: ObjectId
+export type Post = {
+  _id?: ObjectId
   author: {
-    _id: ObjectId
+    _id?: ObjectId
     name: string
     credentials: Credentials
   }
@@ -40,19 +40,20 @@ type Post = {
   location: Location
   timestamp: Date
 }
-type Content = {
+export type Content = {
   text: string
   location: Location
 }
-type Location = {
+export type Location = {
   isUsing: boolean
   latitude: number
   longitude: number
 }
 
-type User = {
+export type User = {
   _id: ObjectId
-  accountCreated: Date
+  goTrueId?: string
+  accountCreated?: Date
   accountUpdated?: Date
   isPrivate: boolean
   name: string
@@ -60,13 +61,19 @@ type User = {
   city?: string
   stateOrProvince?: StatesAndProvinces
   country?: Countries
+  posts?: {
+    authored?: Post[]
+    liked?: Post[]
+    reposted?: Post[]
+    bookmarked?: Post[]
+  }
   blocked?: {
     users: ObjectId[]
     posts: ObjectId[]
   }
 }
-type Credentials = {
-  netlifyId: string
+export type Credentials = {
   username: string
   email: string
+  isConfirmed: boolean
 }

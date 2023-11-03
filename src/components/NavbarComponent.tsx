@@ -84,12 +84,9 @@ export default function Navbar({
   ]
 
   const handleClick = () => {
-    currentUser
-      ?.logout()
-      .then((res) => console.log(res))
-      .catch((e) => {
-        console.error(e)
-      })
+    currentUser?.logout().catch((e) => {
+      console.error(e)
+    })
     updateCurrentUser(null)
   }
 

@@ -23,13 +23,6 @@ const AcceptInvitePage: React.FC<PageProps> = (props) => {
   const stateOrProvinceRef = React.useRef()
   const countryRef = React.useRef()
 
-  // goTrue
-  //   .confirm('fuTVZTTO3PgawchvT5vJSw', true)
-  //   .then((res) => {
-  //     console.log(res)
-  //   })
-  //   .catch((e) => console.error(e))
-
   var email: string,
     inviteToken: string = ''
   const hash = decodeURIComponent(props.location.hash)
@@ -54,16 +47,53 @@ const AcceptInvitePage: React.FC<PageProps> = (props) => {
     }
     updateLoadState(LoadStates.Loading)
 
-    goTrue
-      .acceptInvite(inviteToken, passwordRef.current.value, true)
-      .then((res) => {
-        updateLoadState(LoadStates.Loaded)
-      })
-      .catch((e) => {
-        console.error(e)
-        updateAlertMessage("Couldn't accept the invite. Try logging in instead")
-        updateLoadState(LoadStates.Error)
-      })
+    fetch(BASE_API_URL + '/users/accept_invite', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: nameRef.current.value,
+        credentials: {
+          username: usernameRef.current.value,
+          email: emailRef.current.value,
+        },
+        city: cityRef.current.value,
+        stateOrProvince: stateOrProvinceRef.current.value,
+        country: countryRef.current.value,
+      }),
+    }).then((res) => {
+      if (res.status != 200) {
+        updateAlertMessage(res.statusText)
+        return updateLoadState(LoadStates.Error)
+      }
+      goTrue
+        .acceptInvite(inviteToken, passwordRef.current.value, true)
+        .then((res) => {
+          fetch(BASE_API_URL + '/users/accept_invite/set_goTrue_id', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              goTrueId: res.id,
+              email: emailRef.current.value,
+            }),
+          }).then((res) => {
+            if (res.status != 200) {
+              updateAlertMessage('Something went wrong')
+              return updateLoadState(LoadStates.Error)
+            }
+            updateAlertMessage('Invite accepted. You can now login')
+            updateLoadState(LoadStates.Loaded)
+          })
+        })
+        .catch((e) => {
+          console.error(e)
+          updateAlertMessage("Couldn't accept invite")
+          updateLoadState(LoadStates.Error)
+        })
+    })
   }
 
   return (

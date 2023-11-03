@@ -23,7 +23,6 @@ const LogInPage: React.FC<PageProps> = () => {
     goTrue
       .login(emailRef.current.value, passwordRef.current.value, rememberMeRef.current.checked)
       .then((res) => {
-        console.log(res)
         updateLoadState(LoadStates.Loaded)
       })
       .catch((e) => {

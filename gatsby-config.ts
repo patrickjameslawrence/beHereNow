@@ -22,7 +22,7 @@ const config: GatsbyConfig = {
         lang: 'en',
         start_url: '/',
         scope: '/',
-        display: 'standalone',
+        display: `${process.env.NODE_ENV === 'production' ? 'standalone' : 'browser'}`,
         theme_color: '#3b0764',
         background_color: '#3b0764',
         icon: 'src/images/favicon.svg',

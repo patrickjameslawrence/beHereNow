@@ -13,7 +13,7 @@ const ConfirmEmailPage: React.FC<PageProps> = (props) => {
   const [alertMessage, setAlertMessage] = React.useState<string>('')
   const updateAlertMessage = (value: string) => setAlertMessage(value)
 
-  var email, confirmationToken: string
+  var email: string, confirmationToken: string
   const hash = decodeURIComponent(props.location.hash)
 
   if (hash != '') {
@@ -34,12 +34,27 @@ const ConfirmEmailPage: React.FC<PageProps> = (props) => {
     goTrue
       .confirm(confirmationToken, true)
       .then((res) => {
-        updateAlertMessage('Email confirmed. You can now login')
-        updateLoadState(LoadStates.Loaded)
+        fetch(BASE_API_URL + '/users/confirm_email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            goTrueId: res.id,
+            email: email,
+          }),
+        }).then((res) => {
+          if (res.status != 200) {
+            updateAlertMessage('Something went wrong')
+            return updateLoadState(LoadStates.Error)
+          }
+          updateAlertMessage('Email confirmed. Welcome to BeHereNow')
+          updateLoadState(LoadStates.Loaded)
+        })
       })
       .catch((e) => {
         console.error(e)
-        updateAlertMessage("Couldn't confirm email. Try logging in instead?")
+        updateAlertMessage('Email already confirmed')
         updateLoadState(LoadStates.Error)
       })
   }

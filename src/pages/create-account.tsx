@@ -7,6 +7,7 @@ import { goTrue } from '../lib/globals'
 import { StatesAndProvinces, Countries } from '../lib/globals'
 import { ArrowPathIcon, CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import joinClassNames from '../lib/joinClassNames'
+import { User } from '../types'
 
 const CreateAccountPage: React.FC<PageProps> = () => {
   const [loadState, setLoadState] = React.useState<LoadStates>(LoadStates.NotLoading)
@@ -33,18 +34,44 @@ const CreateAccountPage: React.FC<PageProps> = () => {
     }
     updateLoadState(LoadStates.Loading)
 
-    goTrue
-      .signup(emailRef.current.value, passwordRef.current.value)
+    fetch(BASE_API_URL + '/users/create_account', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: nameRef.current.value,
+        credentials: {
+          username: usernameRef.current.value,
+          email: emailRef.current.value,
+        },
+        city: cityRef.current.value,
+        stateOrProvince: stateOrProvinceRef.current.value,
+        country: countryRef.current.value,
+      }),
+    })
       .then((res) => {
-        console.log(res)
-        updateAlertMessage(
-          "Check your email for a confirmation link. You won't be able to login without confirming your email",
-        )
-        updateLoadState(LoadStates.Loaded)
+        if (res.status != 200) {
+          updateAlertMessage(res.statusText)
+          return updateLoadState(LoadStates.Error)
+        }
+        goTrue
+          .signup(emailRef.current.value, passwordRef.current.value)
+          .then((res) => {
+            updateAlertMessage(
+              "Check your email for a confirmation link. You won't be able to login without confirming your email",
+            )
+            updateLoadState(LoadStates.Loaded)
+          })
+          .catch((e) => {
+            console.error(e)
+            updateAlertMessage('Email not confirmed')
+            updateLoadState(LoadStates.Error)
+          })
       })
       .catch((e) => {
         console.error(e)
-        updateAlertMessage("Couldn't create account. Try logging in instead")
+        updateAlertMessage('Account already made. Check your email')
         updateLoadState(LoadStates.Error)
       })
   }
@@ -94,6 +121,10 @@ const CreateAccountPage: React.FC<PageProps> = () => {
                   placeholder='johndoe'
                   name='username'
                   ref={usernameRef}
+                  onInput={() => {
+                    updateAlertMessage('')
+                    updateLoadState(LoadStates.NotLoading)
+                  }}
                   minLength={1}
                   type='text'
                   autoComplete='username'
@@ -113,6 +144,10 @@ const CreateAccountPage: React.FC<PageProps> = () => {
                   placeholder='johndoe@example.com'
                   name='email'
                   ref={emailRef}
+                  onInput={() => {
+                    updateAlertMessage('')
+                    updateLoadState(LoadStates.NotLoading)
+                  }}
                   type='email'
                   autoComplete='email'
                   required

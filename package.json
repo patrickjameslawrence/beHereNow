@@ -8,8 +8,8 @@
     "gatsby"
   ],
   "scripts": {
-    "develop": "gatsby develop --verbose",
-    "start": "npm run clean && gatsby develop --verbose",
+    "develop": "gatsby develop",
+    "start": "npm run clean && gatsby develop",
     "build": "npm run clean && gatsby build && cp -R src/templates public",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
